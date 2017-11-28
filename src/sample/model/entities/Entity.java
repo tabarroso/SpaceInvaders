@@ -1,6 +1,7 @@
-package sample.model;
+package sample.model.entities;
 
 import javafx.beans.property.*;
+import sample.model.Position;
 
 import java.util.ArrayList;
 
