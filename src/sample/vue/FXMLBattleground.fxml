@@ -7,8 +7,6 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="controller.FXMLBattlegroundController">
-   <children>
-      <Pane fx:id="Panel" prefHeight="${controller.battleground.HEIGHT}" prefWidth="${controller.battleground.WIDTH}" />
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8.0.60" fx:controller="sample.controller.FXMLBattlegroundController">
 </AnchorPane>

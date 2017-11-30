@@ -10,7 +10,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.FXMLLauncherController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0"
+          xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.FXMLLauncherController">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,7 +22,7 @@
       <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ListView fx:id="bestScoresList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <GridPane GridPane.rowIndex="1">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,12 +33,12 @@
         </rowConstraints>
          <children>
             <TextField GridPane.rowIndex="1" />
-            <Label text="Label" />
+            <Label text="Enter your name" />
          </children>
       </GridPane>
-      <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="start" mnemonicParsing="false" onAction="#onClickStart" text="Start the battle" GridPane.rowIndex="2" />
+      <Button fx:id="quit" mnemonicParsing="false" onAction="#onClickQuit" text="Quit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <ImageView fitHeight="40.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
-      <Label text="Label" GridPane.columnIndex="1" />
+      <Label text="Best scores" GridPane.columnIndex="1" />
    </children>
 </GridPane>
