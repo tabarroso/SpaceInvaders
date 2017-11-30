@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("vue/Launcher.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("vue/FXMLLauncher.fxml"));
         primaryStage.setTitle("Space Invaders");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();

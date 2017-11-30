@@ -2,10 +2,12 @@ package sample.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableArray;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Game {
     private StringProperty pseudo = new SimpleStringProperty("default");
+    private ObservableList<Score> scores = new FXCollections.observableArrayList();
 
     public String getPseudo() {
         return pseudo.get();
