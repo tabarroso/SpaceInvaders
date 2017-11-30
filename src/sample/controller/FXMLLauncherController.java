@@ -5,9 +5,6 @@ import javafx.scene.control.ListView;
 
 public class FXMLLauncherController {
 
-
-    @FXML
-    ListView<>
     public void initialize(){
 
     }
