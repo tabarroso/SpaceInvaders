@@ -19,4 +19,9 @@ public class Score{
     public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
+
+    public Score(int score, String pseudo){
+        this.score = score;
+        this.pseudo = pseudo;
+    }
 }

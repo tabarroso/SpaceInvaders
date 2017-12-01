@@ -3,12 +3,12 @@ package sample.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.model.Game;
 import sample.model.Score;
 
 import java.io.IOException;
@@ -17,14 +17,10 @@ import java.util.logging.Logger;
 
 public class FXMLLauncherController {
 
-    @FXML
-    ListView<Score> listeScore;
+    private static Game game = new Game();
 
     @FXML
-    Button start;
-
-    @FXML
-    Button quit;
+    ListView<Score> bestScoresList;
 
     @FXML
     TextField pseudoField;
@@ -48,7 +44,14 @@ public class FXMLLauncherController {
         Main.getPrimaryStage().close();
     }
 
+    public static Game getGame(){ return game; }
+
     public void initialize(){
+        game.pseudoProperty().bind(pseudoField.textProperty());
+        game.getScores().add(new Score(1500, "tanguy"));
+        game.getScores().add(new Score(2000, "ilyace"));
+        game.getScores().add(new Score(3000, "the king"));
+
 
     }
 }

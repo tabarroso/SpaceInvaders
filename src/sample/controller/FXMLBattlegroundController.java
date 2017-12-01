@@ -25,8 +25,6 @@ public class FXMLBattlegroundController {
     private SimpleObjectProperty<Battleground> battleground = new SimpleObjectProperty<>(new Battleground());
         
     public void initialize(URL url, ResourceBundle rb){
-        //panel.heightProperty().bind(battleground.get());
-        battleground.bind(battleground);
-        alien.bind(alien);
+
     }
 }

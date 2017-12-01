@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 public class Game {
     private StringProperty pseudo = new SimpleStringProperty("default");
     private ObservableList<Score> scoresObs = FXCollections.observableArrayList();
-    private final ListProperty<Score> scores = new SimpleListProperty<>(scoresObs);
+    private ListProperty<Score> scores = new SimpleListProperty<>(scoresObs);
 
     public ObservableList<Score> getScores() {
         return scores.get();

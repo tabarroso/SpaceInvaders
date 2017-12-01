@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sample.model.entities.characters;
+package sample.model.entities.characters.aliens;
 
 import sample.model.entities.characters.aliens.Alien;
 
