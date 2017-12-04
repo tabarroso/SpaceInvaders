@@ -12,7 +12,9 @@ import sample.model.entities.characters.Character;
  * @author ilbenjello
  */
 public class Alien extends Character {
-    public Alien(){
-        super();
+    private TypeAlien type;
+    public Alien(TypeAlien type, int speed){
+        super(speed);
+        this.type = type;
     }
 }

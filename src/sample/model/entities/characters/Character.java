@@ -19,7 +19,10 @@ public abstract class Character {
     private int speed;
     public static final int BASE_SPEED = 5;
     
-    public Character(){
+    private static final int MOVE_Y = 3;
+    private static final int MOVE_X = 1;
+    
+    public Character(int speed){
         super();
         this.missile = null;
         this.canShotMissile = true;
@@ -43,4 +46,11 @@ public abstract class Character {
     private boolean isCanShotMissile(){
         return canShotMissile;
     }
+    public void move_Y(){
+        this.position.yPosition.setyPosition(getyPosition() - MOVE_Y);
+    }
+    public void move_X(){
+        this.position.yPosition.setxPosition(getxPosition() - MOVE_X);
+    }
+    
 }
