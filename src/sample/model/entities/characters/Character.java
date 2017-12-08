@@ -20,7 +20,7 @@ public abstract class Character extends Entity {
     private int speed;
     public static final int BASE_SPEED = 5;
     
-    public Character(){
+    public Character(int speed){
         super();
         this.missile = null;
         this.canShotMissile = true;

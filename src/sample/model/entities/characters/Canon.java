@@ -15,7 +15,7 @@ public class Canon extends Character {
     public final static int HEALTH = 5;
     
     public Canon(int speed){
-        super();
+        super(speed);
         this.health = HEALTH;
     }
     private int getHealth(){

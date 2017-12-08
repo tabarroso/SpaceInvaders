@@ -6,7 +6,7 @@
 package sample.model;
 
 import sample.model.entities.characters.Canon;
-import sample.model.entities.characters.aliens.Invaders;
+import sample.model.entities.characters.Invaders;
 
 /**
  *
