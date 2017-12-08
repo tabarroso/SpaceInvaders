@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Position {
     private IntegerProperty xPosition = new SimpleIntegerProperty();
-    private IntegerProperty yPosition = new SimpleIntegerProperty();
+    public IntegerProperty yPosition = new SimpleIntegerProperty();
 
     public int getxPosition() {
         return xPosition.get();

@@ -21,12 +21,12 @@ import sample.model.entities.characters.aliens.Alien;
 public class FXMLBattlegroundController {
     @FXML 
     private Pane panel;
-    private SimpleObjectProperty<Alien> alien = new SimpleObjectProperty<>(new Alien());
+    //private SimpleObjectProperty<Alien> alien = new SimpleObjectProperty<>(new Alien());
     private SimpleObjectProperty<Battleground> battleground = new SimpleObjectProperty<>(new Battleground());
         
     public void initialize(URL url, ResourceBundle rb){
         //panel.heightProperty().bind(battleground.get());
         battleground.bind(battleground);
-        alien.bind(alien);
+        //alien.bind(alien);
     }
 }

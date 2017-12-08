@@ -24,8 +24,7 @@ public class Battleground {
     //private DefenseWall defensewalls
     
     public Battleground(){
-        invaders = null;
-        canon = null;
+        invaders = new Invaders();
         //defensewalls = null;
     }
     

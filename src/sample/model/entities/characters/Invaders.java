@@ -15,33 +15,8 @@ import javafx.collections.FXCollections;
  *
  * @author ilbenjello
  */
-public class Invaders {
-    private ObservableList<Alien> listAlien;
-    
-    public static final int ARMY = 55;
-    public static final int SMALL = 11;
-    public static final int MEDIUM = 33;
-    public static final int BIG = 55;
+public class Invaders extends Game {
     public Invaders(){
-        listAlien = FXCollections.observableArrayList();
-    }
-    
-    public void createArmy(int level){
-        int i; 
-        int speed = level/10;
-        for(i=0; i < ARMY; i++){
-            if(i < SMALL){
-                listAlien.add(new Alien(TYPEALIEN.SMALL, speed));
-            }
-            if(i > SMALL && i < MEDIUM){
-                listAlien.add(new Alien(TYPEALIEN.MEDIUM, speed));
-            }
-            if(i > MEDIUM && i < BIG){
-                listAlien.add(new Alien(TPEALIEN.BIG, speed));
-            }
-        }
-    }
-    public ObservableList<Alien> getListAlien(){
-        return this.listAlien;
+        super();
     }
 }

@@ -5,6 +5,7 @@
  */
 package sample.model.entities.characters.aliens;
 
+import sample.model.entities.characters.Game;
 import sample.model.entities.characters.Character;
 
 /**
@@ -13,8 +14,16 @@ import sample.model.entities.characters.Character;
  */
 public class Alien extends Character {
     private TypeAlien type;
-    public Alien(TypeAlien type, int speed){
+    public Alien(Game game, TypeAlien type, int speed){
         super(speed);
-        this.type = type;
+        switch(type){
+            case BIG: break;
+            case MEDIUM: break;
+            case SMALL: break;
+        }
+    }
+    
+    public void fireMissile(){
+        
     }
 }

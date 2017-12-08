@@ -6,15 +6,15 @@
 package sample.model.entities.characters;
 
 import sample.model.Position;
+import sample.model.entities.Entity;
 import sample.model.entities.Missile;
 
 /**
  *
  * @author ilbenjello
  */
-public abstract class Character {
+public abstract class Character extends Entity {
     private Missile missile;
-    private Position position;
     private boolean canShotMissile;
     private int speed;
     public static final int BASE_SPEED = 5;
@@ -23,16 +23,14 @@ public abstract class Character {
     private static final int MOVE_X = 1;
     
     public Character(int speed){
-        super();
         this.missile = null;
         this.canShotMissile = true;
         this.speed = BASE_SPEED + speed;
     }
     private void fireMissile(){
-        if(isCanShotMissile()){
-            missile = new Missile();
-        }
+        
     }
+    
     private void setCanShotMissile(boolean canShotMissile){
         this.canShotMissile=canShotMissile;
     }
@@ -47,10 +45,9 @@ public abstract class Character {
         return canShotMissile;
     }
     public void move_Y(){
-        this.position.yPosition.setyPosition(getyPosition() - MOVE_Y);
+        this.getPosition().setyPosition(this.getPosition().getyPosition() - MOVE_Y);
     }
     public void move_X(){
-        this.position.yPosition.setxPosition(getxPosition() - MOVE_X);
+        this.getPosition().setxPosition(this.getPosition().getxPosition() - MOVE_X);
     }
-    
 }
