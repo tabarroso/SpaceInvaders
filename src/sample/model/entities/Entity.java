@@ -6,8 +6,31 @@ import sample.model.Position;
 import java.util.ArrayList;
 
 
-abstract class Entity {
+public abstract class Entity {
     private BooleanProperty isAlive = new SimpleBooleanProperty(true);
     private StringProperty skin = new SimpleStringProperty();
-    private ArrayList<Position> hitbox;
+
+    public boolean isIsAlive() {
+        return isAlive.get();
+    }
+
+    public BooleanProperty isAliveProperty() {
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean isAlive) {
+        this.isAlive.set(isAlive);
+    }
+
+    public String getSkin() {
+        return skin.get();
+    }
+
+    public StringProperty skinProperty() {
+        return skin;
+    }
+
+    public void setSkin(String skin) {
+        this.skin.set(skin);
+    }
 }

@@ -1,33 +1,35 @@
 package sample.model;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Position {
-    private IntegerProperty xPosition = new SimpleIntegerProperty();
-    private IntegerProperty yPosition = new SimpleIntegerProperty();
+    private DoubleProperty xPosition = new SimpleDoubleProperty();
+    private DoubleProperty yPosition = new SimpleDoubleProperty();
 
-    public int getxPosition() {
+    public double getxPosition() {
         return xPosition.get();
     }
 
-    public IntegerProperty xPositionProperty() {
+    public DoubleProperty xPositionProperty() {
         return xPosition;
     }
 
-    public void setxPosition(int xPosition) {
+    public void setxPosition(double xPosition) {
         this.xPosition.set(xPosition);
     }
 
-    public int getyPosition() {
+    public double getyPosition() {
         return yPosition.get();
     }
 
-    public IntegerProperty yPositionProperty() {
+    public DoubleProperty yPositionProperty() {
         return yPosition;
     }
 
-    public void setyPosition(int yPosition) {
+    public void setyPosition(double yPosition) {
         this.yPosition.set(yPosition);
     }
 }

@@ -1,13 +1,17 @@
 package sample.controller;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sample.Main;
+import sample.launcher.Main;
 import sample.model.Game;
 import sample.model.Score;
 
@@ -24,6 +28,8 @@ public class FXMLLauncherController {
 
     @FXML
     TextField pseudoField;
+
+    private final ObjectProperty<Game> gameObjectProperty = new SimpleObjectProperty<>(game);
 
     @FXML
     private void onClickStart(){
@@ -46,12 +52,34 @@ public class FXMLLauncherController {
 
     public static Game getGame(){ return game; }
 
-    public void initialize(){
+    @FXML
+    private void initialize(){
         game.pseudoProperty().bind(pseudoField.textProperty());
         game.getScores().add(new Score(1500, "tanguy"));
         game.getScores().add(new Score(2000, "ilyace"));
         game.getScores().add(new Score(3000, "the king"));
+        bestScoresList.setItems(gameObjectProperty.getValue().scoresProperty());
+        bestScoresList.setCellFactory((param) -> {
+            return new ListCell<Score>(){
+                @Override
+                protected void updateItem(Score score, boolean empty) {
+                    super.updateItem(score, empty);
+                    if (! empty) {
+                        textProperty().bind(Bindings.concat(score.pseudoPropProperty()," : ",score.scorePropProperty()));
+                    } else {
+                        textProperty().unbind();
+                        setText("");
+                    }
+                }
+            };
+        });
+    }
 
+    public Game getGameObjectProperty() {
+        return gameObjectProperty.get();
+    }
 
+    public ObjectProperty<Game> gameObjectPropertyProperty() {
+        return gameObjectProperty;
     }
 }

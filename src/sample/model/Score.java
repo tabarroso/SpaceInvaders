@@ -1,27 +1,42 @@
 package sample.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Score{
-    private int score;
-    private String pseudo;
+    private StringProperty pseudoProp = new SimpleStringProperty();
+    private IntegerProperty scoreProp = new SimpleIntegerProperty();
 
-    public int getScore() {
-        return score;
+    public String getPseudoProp() {
+        return pseudoProp.get();
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public StringProperty pseudoPropProperty() {
+        return pseudoProp;
     }
 
-    public String getPseudo() {
-        return pseudo;
+    public void setPseudoProp(String pseudoProp) {
+        this.pseudoProp.set(pseudoProp);
     }
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public int getScoreProp() {
+        return scoreProp.get();
+    }
+
+
+
+    public IntegerProperty scorePropProperty() {
+        return scoreProp;
+    }
+
+    public void setScoreProp(int scoreProp) {
+        this.scoreProp.set(scoreProp);
     }
 
     public Score(int score, String pseudo){
-        this.score = score;
-        this.pseudo = pseudo;
+        this.setScoreProp(score);
+        this.setPseudoProp(pseudo);
     }
 }

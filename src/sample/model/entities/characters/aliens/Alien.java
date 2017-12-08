@@ -12,7 +12,16 @@ import sample.model.entities.characters.Character;
  * @author ilbenjello
  */
 public class Alien extends Character {
-    public Alien(){
+    private static final String BIGSKIN = "/sample/resources/Largeinvader.png";
+    private static final String MEDSKIN = "/sample/resources/Mediuminvader.png";
+    private static final String SMALLSKIN = "/sample/resources/Smallinvader.png";
+
+    public Alien(TypeAlien type){
         super();
+        switch (type){
+            case BIG:this.setSkin(BIGSKIN);
+            case MEDIUM:this.setSkin(MEDSKIN);
+            case SMALL:this.setSkin(SMALLSKIN);
+        }
     }
 }

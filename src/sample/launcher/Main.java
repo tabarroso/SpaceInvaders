@@ -1,4 +1,4 @@
-package sample;
+package sample.launcher;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +12,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Main.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("vue/FXMLLauncher.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/vue/FXMLLauncher.fxml"));
         primaryStage.setTitle("Space Invaders");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

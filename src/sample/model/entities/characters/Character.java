@@ -6,15 +6,16 @@
 package sample.model.entities.characters;
 
 import sample.model.Position;
+import sample.model.entities.Entity;
 import sample.model.entities.Missile;
 
 /**
  *
  * @author ilbenjello
  */
-public abstract class Character {
+public abstract class Character extends Entity {
     private Missile missile;
-    private Position position;
+    private Position position = new Position();
     private boolean canShotMissile;
     private int speed;
     public static final int BASE_SPEED = 5;
@@ -42,5 +43,12 @@ public abstract class Character {
     }
     private boolean isCanShotMissile(){
         return canShotMissile;
+    }
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
