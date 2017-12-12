@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.FXMLBattlegroundController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.151" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.FXMLBattlegroundController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
@@ -44,6 +44,7 @@
             <Label text="Label" />
          </children>
       </GridPane>
-      <Pane fx:id="battleground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+      <Pane fx:id="battleground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.fillHeight="true" GridPane.fillWidth="true"
+            GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
    </children>
 </GridPane>

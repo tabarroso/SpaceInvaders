@@ -13,11 +13,11 @@ public abstract class Game {
     
     private ObservableList<Entity> listAlien;
     
-    public static final int ARMY = 55;
-    public static final int SMALL = 11;
-    public static final int MEDIUM = 33;
-    public static final int BIG = 55;
-    public static final String skin ="";
+    private static final int ARMY = 55;
+    private static final int SMALL = 11;
+    private static final int MEDIUM = 33;
+    private static final int BIG = 55;
+    private static final String skin ="";
     
     private static final int HEIGHT = 1000;
     private static final int WIDTH = 1000;

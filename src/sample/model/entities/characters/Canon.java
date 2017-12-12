@@ -16,6 +16,7 @@ public class Canon extends Character {
     
     public Canon(int speed){
         super(speed);
+        this.setSkin("/sample/resources/canon.jpg");
         this.health = HEALTH;
     }
     private int getHealth(){
