@@ -6,7 +6,7 @@
 package sample.model;
 
 import sample.model.entities.characters.Canon;
-import sample.model.entities.characters.Invaders;
+import sample.model.entities.characters.MedInvaders;
 
 /**
  *
@@ -18,11 +18,11 @@ public class Battleground {
     private static final int MIN_WIDTH = 0;
     private static final int MIN_HEIGHT = 0;
     
-    private Invaders invaders;
+    private MedInvaders medInvaders;
     private Canon canon;
     
     public Battleground(){
-        invaders = null;
+        medInvaders = null;
         canon = null;
     }
     

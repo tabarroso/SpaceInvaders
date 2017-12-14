@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Main.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/sample/vue/FXMLLauncher.fxml"));
-        primaryStage.setTitle("Space Invaders");
+        primaryStage.setTitle("Space MedInvaders");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

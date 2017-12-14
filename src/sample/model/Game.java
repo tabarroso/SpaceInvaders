@@ -3,11 +3,31 @@ package sample.model;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import sample.model.entities.characters.aliens.Alien;
+import sample.model.entities.characters.aliens.TypeAlien;
+
+import java.util.ArrayList;
 
 public class Game {
     private StringProperty pseudo = new SimpleStringProperty("default");
     private ObservableList<Score> scoresObs = FXCollections.observableArrayList();
     private ListProperty<Score> scores = new SimpleListProperty<>(scoresObs);
+    private ObservableList<Alien> listAlien;
+    private int level;
+    private static final int ARMY = 55;
+    private static final int SMALL = 11;
+    private static final int MEDIUM = 33;
+    private static final int BIG = 55;
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public ObservableList<Score> getScores() {
         return scores.get();

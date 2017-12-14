@@ -5,8 +5,8 @@
  */
 package sample.model.entities.characters.aliens;
 
-import sample.model.entities.characters.Game;
 import sample.model.entities.characters.Character;
+import sample.model.entities.characters.MedInvaders;
 
 /**
  *
@@ -16,14 +16,16 @@ public class Alien extends Character {
     private static final String BIGSKIN = "/sample/resources/Largeinvader.png";
     private static final String MEDSKIN = "/sample/resources/Mediuminvader.png";
     private static final String SMALLSKIN = "/sample/resources/Smallinvader.png";
+    private MedInvaders medInvaders;
 
-    public Alien(Game game, TypeAlien type, int speed){
+    public Alien(MedInvaders medInvaders, TypeAlien type, int speed){
         super(speed);
         switch (type){
             case BIG:this.setSkin(BIGSKIN);
             case MEDIUM:this.setSkin(MEDSKIN);
             case SMALL:this.setSkin(SMALLSKIN);
         }
+        this.medInvaders = medInvaders;
     }
 
     public Alien(TypeAlien type){
