@@ -6,30 +6,27 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Position {
-    private DoubleProperty xPosition = new SimpleDoubleProperty();
-    private DoubleProperty yPosition = new SimpleDoubleProperty();
+    private Double xPosition;
+    private Double yPosition;
 
     public double getxPosition() {
-        return xPosition.get();
-    }
-
-    public DoubleProperty xPositionProperty() {
         return xPosition;
     }
 
     public void setxPosition(double xPosition) {
-        this.xPosition.set(xPosition);
+        this.xPosition = xPosition;
     }
 
     public double getyPosition() {
-        return yPosition.get();
-    }
-
-    public DoubleProperty yPositionProperty() {
         return yPosition;
     }
 
     public void setyPosition(double yPosition) {
-        this.yPosition.set(yPosition);
+        this.yPosition = yPosition;
+    }
+
+    public Position(double xPosition, double yPosition){
+        setxPosition(xPosition);
+        setyPosition(yPosition);
     }
 }

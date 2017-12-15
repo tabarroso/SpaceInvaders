@@ -7,6 +7,7 @@ package sample.model.entities.characters;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import sample.model.Position;
 import sample.model.entities.characters.aliens.Alien;
 
 import java.util.ArrayList;
@@ -27,7 +28,8 @@ public class MedInvaders {
     private static final int SMALL = 11;
     private static final int MEDIUM = 33;
     private static final int BIG = 55;
-    private static final double SPACE = 50;
+    private static final double SPACE_X = 65;
+    private static final double SPACE_Y = 50;
     private static final double MIN_X = 0;
     private static final double MIN_Y = 0;
     public MedInvaders(){
@@ -54,33 +56,44 @@ public class MedInvaders {
             if(i < SMALL){
                 listAlien.add(new Alien(this, TypeAlien.SMALL, speed));
             }
-            if(i > SMALL && i < MEDIUM){
+            if(i >= SMALL && i < MEDIUM){
                 listAlien.add(new Alien(this, TypeAlien.MEDIUM, speed));
             }
-            if(i > MEDIUM && i < BIG){
+            if(i >= MEDIUM && i < BIG){
                 listAlien.add(new Alien(this, TypeAlien.BIG, speed));
             }
         }
     }
 
     public ArrayList<ImageView> createImages(double x, double y){
-        double X = MIN_X, Y = MIN_Y;
+        int cpt = 0;
+        Position position = new Position(MIN_X,MIN_Y);
         ArrayList<ImageView> alienImageList = new ArrayList<>();
         ImageView alienImage;
-        System.out.println(x);
-        for (Alien alien : listAlien) {
-            X += SPACE;
+        for (Iterator<Alien> it = listAlien.iterator(); it.hasNext();) {
+            Alien alien = it.next();
             alienImage = new ImageView();
             alienImage.setImage(new Image(alien.getSkin()));
-            if(X+SPACE > x){
-                X = MIN_X;
-                Y += SPACE;
-            }
-            alienImage.setX(X);
-            alienImage.setY(Y);
+            calculatePosition(position, x, cpt);
+            alienImage.setX(position.getxPosition());
+            alienImage.setY(position.getyPosition());
             alienImageList.add(alienImage);
+            cpt ++;
         }
         return alienImageList;
+    }
+
+    private void calculatePosition(Position position, double x, int cpt){
+        if(cpt%11 == 0){
+            position.setxPosition(MIN_X);
+            position.setyPosition(position.getyPosition()+SPACE_Y);
+        }
+        if(position.getxPosition()+SPACE_X > x){
+            position.setxPosition(MIN_X);
+            position.setyPosition(position.getyPosition()+SPACE_Y);
+            return;
+        }
+        position.setxPosition(position.getxPosition()+SPACE_X);
     }
 
     public ArrayList<Alien> getListAlien(){

@@ -22,19 +22,13 @@ public class Alien extends Character {
         super(speed);
         switch (type){
             case BIG:this.setSkin(BIGSKIN);
+                break;
             case MEDIUM:this.setSkin(MEDSKIN);
+                break;
             case SMALL:this.setSkin(SMALLSKIN);
+                break;
         }
         this.medInvaders = medInvaders;
-    }
-
-    public Alien(TypeAlien type){
-        super(2);
-        switch (type){
-            case BIG:this.setSkin(BIGSKIN);
-            case MEDIUM:this.setSkin(MEDSKIN);
-            case SMALL:this.setSkin(SMALLSKIN);
-        }
     }
     
     public void fireMissile(){

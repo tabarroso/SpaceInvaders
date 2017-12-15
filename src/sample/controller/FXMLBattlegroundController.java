@@ -76,4 +76,28 @@ public class FXMLBattlegroundController {
         aliensImages = mediator.createImages(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
     }
 
+    private void initializeTranslations(){
+        TranslateTransition tty = new TranslateTransition(Duration.millis(1000), alienImage);
+        TranslateTransition ttx = new TranslateTransition(Duration.millis(1000), alienImage);
+        ttx.setOnFinished(event->{
+            tty.setByX(0);
+            tty.setByY(50);
+            tty.setAutoReverse(true);
+            tty.playFrom(Duration.millis(20));
+            });
+        tty.setOnFinished(event -> {
+            ttx.setByY(0);
+            if(alienImage.getBoundsInParent().getMinX() == 0){
+                ttx.setToX(battleground.getBoundsInParent().getMaxX()-alienImage.getBoundsInParent().getWidth());
+                }
+            else{
+                ttx.setToX(battleground.getBoundsInParent().getMinX());
+                }
+            ttx.playFrom(Duration.millis(20));
+            });
+        ttx.setToX(battleground.getBoundsInParent().getWidth()-alienImage.getBoundsInParent().getWidth());
+        ttx.playFrom(Duration.millis(200));
+    }
+    }
+
 }

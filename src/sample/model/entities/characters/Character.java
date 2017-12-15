@@ -15,40 +15,36 @@ import sample.model.entities.Missile;
  */
 public abstract class Character extends Entity {
     private Missile missile;
-    private Position position = new Position();
     private boolean canShotMissile;
     private int speed;
     public static final int BASE_SPEED = 5;
-    
-    public Character(int speed){
+
+    public Character(int speed) {
         super();
         this.missile = null;
         this.canShotMissile = true;
         this.speed = BASE_SPEED + speed;
     }
-    private void fireMissile(){
-        if(isCanShotMissile()){
+
+    private void fireMissile() {
+        if (isCanShotMissile()) {
             missile = new Missile();
         }
     }
-    private void setCanShotMissile(boolean canShotMissile){
-        this.canShotMissile=canShotMissile;
-    }
-    private void setSpeed(int speed){
-        this.speed = speed;
-    }
-    
-    private int getSpeed(){
-        return speed;
-    }
-    private boolean isCanShotMissile(){
-        return canShotMissile;
-    }
-    public Position getPosition() {
-        return position;
+
+    private void setCanShotMissile(boolean canShotMissile) {
+        this.canShotMissile = canShotMissile;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    private void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    private int getSpeed() {
+        return speed;
+    }
+
+    private boolean isCanShotMissile() {
+        return canShotMissile;
     }
 }
