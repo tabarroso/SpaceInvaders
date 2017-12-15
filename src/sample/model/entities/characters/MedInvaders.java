@@ -104,7 +104,7 @@ public class MedInvaders {
         return listAlien;
     }
     
-    private ArrayList<XYTransition> initializeTranslations(double maxX, double minX, ArrayList<ImageView> aliensImages){
+    public ArrayList<XYTransition> initializeTranslations(double maxX, double minX, ArrayList<ImageView> aliensImages){
         ArrayList<XYTransition> alienXYTT = new ArrayList<>();
         Iterator it = aliensImages.iterator();
         while(it.hasNext()){
@@ -127,10 +127,11 @@ public class MedInvaders {
                     }
                 ttx.playFrom(Duration.millis(20));
                 });
+            
             XYTransition xyTransition = new XYTransition(ttx, tty);
             alienXYTT.add(xyTransition);
-            //ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
-            //ttx.playFrom(Duration.millis(200));
+            ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
+            ttx.playFrom(Duration.millis(200));
         }
         return alienXYTT;
     }

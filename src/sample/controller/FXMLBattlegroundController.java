@@ -21,6 +21,7 @@ import sample.model.entities.characters.aliens.Alien;
 import sample.model.entities.characters.aliens.TypeAlien;
 
 import java.util.ArrayList;
+import sample.model.entities.characters.XYTransition;
 
 /**
  *
@@ -34,8 +35,7 @@ public class FXMLBattlegroundController {
     private MedInvaders mediator;
     private Game game = new Game();
     private Boolean isLaunched = false;
-    private ArrayList<TranslateTransition> xTrasitions;
-    private ArrayList<TranslateTransition> yTrasitions;
+    private ArrayList<XYTransition> alienXYTT;
     @FXML
     Pane battleground;
 
@@ -74,5 +74,9 @@ public class FXMLBattlegroundController {
         mediator.createInvaders(game.getLevel());
         aliens = mediator.getListAlien();
         aliensImages = mediator.createImages(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
+        double minX = battleground.getBoundsInParent().getMinX();
+        double maxX =  battleground.getBoundsInParent().getMaxX();
+        alienXYTT =  mediator.initializeTranslations(maxX, minX, aliensImages);
+        
     }
 }
