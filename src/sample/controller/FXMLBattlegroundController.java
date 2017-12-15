@@ -6,19 +6,16 @@
 package sample.controller;
 
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.model.Game;
 import sample.model.entities.characters.Canon;
 import sample.model.entities.characters.MedInvaders;
 import sample.model.entities.characters.aliens.Alien;
-import sample.model.entities.characters.aliens.TypeAlien;
 
 import java.util.ArrayList;
 
@@ -50,23 +47,31 @@ public class FXMLBattlegroundController {
     }
 
     private void setKeyEvents(){
-        TranslateTransition transition = new TranslateTransition();
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1), canonImage);
         battleground.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.RIGHT){
-
+                transition.setByX(20);
+                transition.play();
             }
             if(event.getCode() == KeyCode.LEFT){
-
+                transition.setByX(-50);
+                transition.play();
             }
             if(event.getCode() == KeyCode.UP){
 
             }
+            event.consume();
+        });
+        battleground.setOnKeyReleased(event -> {
+            transition.stop();
         });
     }
 
     private void launchGame(){
         initializeCharacters();
         battleground.getChildren().addAll(aliensImages);
+        battleground.getChildren().add(canonImage);
+        setKeyEvents();
     }
 
     private void initializeCharacters(){
@@ -74,30 +79,10 @@ public class FXMLBattlegroundController {
         mediator.createInvaders(game.getLevel());
         aliens = mediator.getListAlien();
         aliensImages = mediator.createImages(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
+        canon = new Canon(10);
+        canonImage = new ImageView();
+        canonImage.setImage(new Image(canon.getSkin()));
+        canonImage.setY(battleground.getBoundsInParent().getHeight() - canonImage.getImage().getHeight());
+        canonImage.setX((battleground.getBoundsInParent().getWidth() - canonImage.getImage().getWidth())/2);
     }
-
-    private void initializeTranslations(){
-        TranslateTransition tty = new TranslateTransition(Duration.millis(1000), alienImage);
-        TranslateTransition ttx = new TranslateTransition(Duration.millis(1000), alienImage);
-        ttx.setOnFinished(event->{
-            tty.setByX(0);
-            tty.setByY(50);
-            tty.setAutoReverse(true);
-            tty.playFrom(Duration.millis(20));
-            });
-        tty.setOnFinished(event -> {
-            ttx.setByY(0);
-            if(alienImage.getBoundsInParent().getMinX() == 0){
-                ttx.setToX(battleground.getBoundsInParent().getMaxX()-alienImage.getBoundsInParent().getWidth());
-                }
-            else{
-                ttx.setToX(battleground.getBoundsInParent().getMinX());
-                }
-            ttx.playFrom(Duration.millis(20));
-            });
-        ttx.setToX(battleground.getBoundsInParent().getWidth()-alienImage.getBoundsInParent().getWidth());
-        ttx.playFrom(Duration.millis(200));
-    }
-    }
-
 }
