@@ -18,6 +18,7 @@ import sample.model.entities.characters.MedInvaders;
 import sample.model.entities.characters.aliens.Alien;
 
 import java.util.ArrayList;
+import sample.model.entities.characters.XYTransition;
 
 /**
  *
@@ -31,8 +32,7 @@ public class FXMLBattlegroundController {
     private MedInvaders mediator;
     private Game game = new Game();
     private Boolean isLaunched = false;
-    private ArrayList<TranslateTransition> xTrasitions;
-    private ArrayList<TranslateTransition> yTrasitions;
+    private ArrayList<XYTransition> alienXYTT;
     @FXML
     Pane battleground;
 
@@ -79,10 +79,8 @@ public class FXMLBattlegroundController {
         mediator.createInvaders(game.getLevel());
         aliens = mediator.getListAlien();
         aliensImages = mediator.createImages(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
-        canon = new Canon(10);
-        canonImage = new ImageView();
-        canonImage.setImage(new Image(canon.getSkin()));
-        canonImage.setY(battleground.getBoundsInParent().getHeight() - canonImage.getImage().getHeight());
-        canonImage.setX((battleground.getBoundsInParent().getWidth() - canonImage.getImage().getWidth())/2);
-    }
+        double minX = battleground.getBoundsInParent().getMinX();
+        double maxX =  battleground.getBoundsInParent().getMaxX();
+        alienXYTT =  mediator.initializeTranslations(maxX, minX, aliensImages);
+            }
 }

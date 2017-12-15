@@ -12,9 +12,12 @@ import sample.model.entities.characters.aliens.Alien;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import javafx.animation.TranslateTransition;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.util.Duration;
+import sample.model.Battleground;
 import sample.model.entities.characters.aliens.TypeAlien;
 
 /**
@@ -24,6 +27,7 @@ import sample.model.entities.characters.aliens.TypeAlien;
 public class MedInvaders {
     private ArrayList<Alien> listAlien;
 
+    private static final double MIN = 0;
     private static final int ARMY = 55;
     private static final int SMALL = 11;
     private static final int MEDIUM = 33;
@@ -98,5 +102,37 @@ public class MedInvaders {
 
     public ArrayList<Alien> getListAlien(){
         return listAlien;
+    }
+    
+    public ArrayList<XYTransition> initializeTranslations(double maxX, double minX, ArrayList<ImageView> aliensImages){
+        ArrayList<XYTransition> alienXYTT = new ArrayList<>();
+        Iterator it = aliensImages.iterator();
+        while(it.hasNext()){
+            ImageView alienImage = (ImageView) it.next();
+            TranslateTransition tty = new TranslateTransition(Duration.millis(1000), alienImage);
+            TranslateTransition ttx = new TranslateTransition(Duration.millis(1000), alienImage);
+            ttx.setOnFinished(event->{
+                tty.setByX(MIN);
+                tty.setByY(SPACE_Y);
+                tty.setAutoReverse(true);
+                tty.playFrom(Duration.millis(20));
+                });
+            tty.setOnFinished(event -> {
+                ttx.setByY(MIN);
+                if(minX == MIN){
+                    ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
+                    }
+                else{
+                    ttx.setToX(MIN);
+                    }
+                ttx.playFrom(Duration.millis(20));
+                });
+            
+            XYTransition xyTransition = new XYTransition(ttx, tty);
+            alienXYTT.add(xyTransition);
+            ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
+            ttx.playFrom(Duration.millis(200));
+        }
+        return alienXYTT;
     }
 }
