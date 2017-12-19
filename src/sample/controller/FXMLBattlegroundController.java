@@ -81,6 +81,7 @@ public class FXMLBattlegroundController {
         aliensImages = mediator.createImages(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
         double minX = battleground.getBoundsInParent().getMinX();
         double maxX =  battleground.getBoundsInParent().getMaxX();
-        alienXYTT =  mediator.initializeTranslations(maxX, minX, aliensImages);
+        double width = battleground.getBoundsInParent().getWidth();
+        alienXYTT =  mediator.initializeTranslations(maxX, minX, width, aliensImages);
     }
 }

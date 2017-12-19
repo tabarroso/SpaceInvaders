@@ -91,6 +91,7 @@ public class MedInvaders {
         if(cpt%11 == 0){
             position.setxPosition(MIN_X);
             position.setyPosition(position.getyPosition()+SPACE_Y);
+            return;
         }
         if(position.getxPosition()+SPACE_X > x){
             position.setxPosition(MIN_X);
@@ -104,7 +105,7 @@ public class MedInvaders {
         return listAlien;
     }
     
-    public ArrayList<XYTransition> initializeTranslations(double maxX, double minX, ArrayList<ImageView> aliensImages){
+    public ArrayList<XYTransition> initializeTranslations(double maxX, double minX, double width, ArrayList<ImageView> aliensImages){
         ArrayList<XYTransition> alienXYTT = new ArrayList<>();
         Iterator it = aliensImages.iterator();
         while(it.hasNext()){
@@ -112,25 +113,26 @@ public class MedInvaders {
             TranslateTransition tty = new TranslateTransition(Duration.millis(3000), alienImage);
             TranslateTransition ttx = new TranslateTransition(Duration.millis(3000), alienImage);
             ttx.setOnFinished(event->{
-                tty.setByX(MIN);
+                tty.setByX(MIN_X);
                 tty.setByY(SPACE_Y);
                 tty.setAutoReverse(true);
                 tty.playFrom(Duration.millis(20));
-                });
+            });
             tty.setOnFinished(event -> {
-                ttx.setByY(MIN);
-                if(minX == MIN){
-                    ttx.setToX(maxX-alienImage.getImage().getWidth());
-                    }
+                //double distance;
+                ttx.setByY(MIN_Y);
+                if((alienImage.getBoundsInParent().getMinX()%SPACE_X) == 0){
+                    //distance = alienImage.getBoundsInParent().getMinX()/SPACE_X;
+                    ttx.setToX(maxX - alienImage.getImage().getWidth());
+                }
                 else{
-                    ttx.setToX(MIN);
-                    }
+                    ttx.setToX(minX);
+                }
                 ttx.playFrom(Duration.millis(20));
-                });
-            
+            });
             XYTransition xyTransition = new XYTransition(ttx, tty);
             alienXYTT.add(xyTransition);
-            ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
+            ttx.setToX(width - alienImage.getImage().getWidth());
             ttx.playFrom(Duration.millis(200));
         }
         return alienXYTT;
