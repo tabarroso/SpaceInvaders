@@ -109,8 +109,8 @@ public class MedInvaders {
         Iterator it = aliensImages.iterator();
         while(it.hasNext()){
             ImageView alienImage = (ImageView) it.next();
-            TranslateTransition tty = new TranslateTransition(Duration.millis(1000), alienImage);
-            TranslateTransition ttx = new TranslateTransition(Duration.millis(1000), alienImage);
+            TranslateTransition tty = new TranslateTransition(Duration.millis(3000), alienImage);
+            TranslateTransition ttx = new TranslateTransition(Duration.millis(3000), alienImage);
             ttx.setOnFinished(event->{
                 tty.setByX(MIN);
                 tty.setByY(SPACE_Y);
@@ -120,7 +120,7 @@ public class MedInvaders {
             tty.setOnFinished(event -> {
                 ttx.setByY(MIN);
                 if(minX == MIN){
-                    ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
+                    ttx.setToX(maxX-alienImage.getImage().getWidth());
                     }
                 else{
                     ttx.setToX(MIN);

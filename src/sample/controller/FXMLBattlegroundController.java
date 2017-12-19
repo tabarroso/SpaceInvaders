@@ -47,10 +47,10 @@ public class FXMLBattlegroundController {
     }
 
     private void setKeyEvents(){
-        TranslateTransition transition = new TranslateTransition(Duration.millis(1), canonImage);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(2000), canonImage);
         battleground.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.RIGHT){
-                transition.setByX(20);
+                transition.setByX(200);
                 transition.play();
             }
             if(event.getCode() == KeyCode.LEFT){
@@ -82,5 +82,5 @@ public class FXMLBattlegroundController {
         double minX = battleground.getBoundsInParent().getMinX();
         double maxX =  battleground.getBoundsInParent().getMaxX();
         alienXYTT =  mediator.initializeTranslations(maxX, minX, aliensImages);
-            }
+    }
 }
