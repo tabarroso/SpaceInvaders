@@ -44,7 +44,9 @@
             <Label text="Label" />
          </children>
       </GridPane>
-      <Pane fx:id="battleground" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.fillHeight="true" GridPane.fillWidth="true"
-            GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" focusTraversable="true"/>
+      <Pane fx:id="battleground" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+         <children>
+            <Pane fx:id="invaders" />
+         </children></Pane>
    </children>
 </GridPane>

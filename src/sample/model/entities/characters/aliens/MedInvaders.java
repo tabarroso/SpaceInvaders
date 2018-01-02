@@ -3,22 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sample.model.entities.characters;
+package sample.model.entities.characters.aliens;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import sample.model.Position;
-import sample.model.entities.characters.aliens.Alien;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.animation.TranslateTransition;
 
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import javafx.util.Duration;
-import sample.model.Battleground;
-import sample.model.entities.characters.aliens.TypeAlien;
 
 /**
  *
@@ -88,6 +84,7 @@ public class MedInvaders {
     }
 
     private void calculatePosition(Position position, double x, int cpt){
+        position.setxPosition(position.getxPosition()+SPACE_X);
         if(cpt%11 == 0){
             position.setxPosition(MIN_X);
             position.setyPosition(position.getyPosition()+SPACE_Y);
@@ -97,42 +94,40 @@ public class MedInvaders {
             position.setyPosition(position.getyPosition()+SPACE_Y);
             return;
         }
-        position.setxPosition(position.getxPosition()+SPACE_X);
     }
 
     public ArrayList<Alien> getListAlien(){
         return listAlien;
     }
-    
-    public ArrayList<XYTransition> initializeTranslations(double maxX, double minX, ArrayList<ImageView> aliensImages){
-        ArrayList<XYTransition> alienXYTT = new ArrayList<>();
-        Iterator it = aliensImages.iterator();
-        while(it.hasNext()){
-            ImageView alienImage = (ImageView) it.next();
-            TranslateTransition tty = new TranslateTransition(Duration.millis(3000), alienImage);
-            TranslateTransition ttx = new TranslateTransition(Duration.millis(3000), alienImage);
-            ttx.setOnFinished(event->{
-                tty.setByX(MIN);
-                tty.setByY(SPACE_Y);
+
+    public void initializeTranslation(Pane aliens, Pane battleground){
+        TranslateTransition tty = new TranslateTransition(Duration.millis(1500), aliens);
+        TranslateTransition ttx = new TranslateTransition(Duration.millis(3500), aliens);
+        ttx.setOnFinished(event->{
+            if(aliens.getBoundsInParent().getMaxY() <= (battleground.getBoundsInParent().getHeight()/100)*80){
+                tty.setByX(0);
+                tty.setByY(50);
                 tty.setAutoReverse(true);
-                tty.playFrom(Duration.millis(20));
-                });
-            tty.setOnFinished(event -> {
-                ttx.setByY(MIN);
-                if(minX == MIN){
-                    ttx.setToX(maxX-alienImage.getImage().getWidth());
-                    }
-                else{
-                    ttx.setToX(MIN);
-                    }
-                ttx.playFrom(Duration.millis(20));
-                });
-            
-            XYTransition xyTransition = new XYTransition(ttx, tty);
-            alienXYTT.add(xyTransition);
-            ttx.setToX(maxX-alienImage.getBoundsInParent().getWidth());
-            ttx.playFrom(Duration.millis(200));
-        }
-        return alienXYTT;
+                tty.play();
+            }
+            else{
+                tty.setByX(0);
+                tty.setByY(0);
+                tty.setAutoReverse(true);
+                tty.play();
+            }
+        });
+        tty.setOnFinished(event -> {
+            ttx.setByY(0);
+            if(aliens.getBoundsInParent().getMinX() == 0){
+                ttx.setToX(battleground.getBoundsInParent().getWidth()-aliens.getBoundsInParent().getWidth());
+            }
+            else{
+                ttx.setToX(battleground.getBoundsInParent().getMinX());
+            }
+            ttx.play();
+        });
+        ttx.setToX(battleground.getBoundsInParent().getWidth()-aliens.getBoundsInParent().getWidth());
+        ttx.play();
     }
 }

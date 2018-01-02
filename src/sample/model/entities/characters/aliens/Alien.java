@@ -6,7 +6,6 @@
 package sample.model.entities.characters.aliens;
 
 import sample.model.entities.characters.Character;
-import sample.model.entities.characters.MedInvaders;
 
 /**
  *
