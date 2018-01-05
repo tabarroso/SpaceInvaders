@@ -11,18 +11,31 @@ package sample.model.entities.characters;
  */
 public class Canon extends Character {
     private int health;
-
-    public final static int HEALTH = 5;
+    private boolean canShot;
+    private final static int HEALTH = 5;
     
     public Canon(int speed){
         super(speed);
         this.setSkin("/sample/resources/canon.jpg");
         this.health = HEALTH;
+        canShot = true;
     }
     private int getHealth(){
         return health;
     }
     private void setHealth(int health){
         this.health = health;
+    }
+
+    public boolean isCanShot(){
+        if(canShot){
+            canShot = false;
+            return true;
+        }
+        return false;
+    }
+
+    public void setCanShot(boolean canShot){
+        this.canShot = canShot;
     }
 }

@@ -13,10 +13,14 @@ public class Missile {
     private String shape;
     private int speed;
     public static final int BASE_MISSILE_SPEED = 5;
-    public static final String BASE_SHAPE = "/images/laser.png";
+    public static final String BASE_SHAPE = "/sample/resources/laser.png";
     
     public Missile(){
         shape = BASE_SHAPE;
         speed = BASE_MISSILE_SPEED;
+    }
+
+    public String getShape() {
+        return shape;
     }
 }
