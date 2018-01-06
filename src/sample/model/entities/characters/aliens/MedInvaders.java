@@ -42,7 +42,7 @@ public class MedInvaders {
         Iterator iterator = listAlien.iterator();
         while(iterator.hasNext()){
             Alien alien = (Alien)iterator.next();
-            if (i == idx){
+            if (i == idx) {
                 alien.fireMissile();
             }
             i++;

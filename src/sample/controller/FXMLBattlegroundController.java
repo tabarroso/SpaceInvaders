@@ -20,6 +20,7 @@ import sample.model.entities.characters.aliens.Alien;
 import sample.model.entities.characters.aliens.MedInvaders;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -58,34 +59,35 @@ public class FXMLBattlegroundController {
     }
 
     private void upShotCmd(KeyEvent event) {
-        if(event.getCode() == KeyCode.UP){
-            if(canon.isCanShot()){
+        if (event.getCode() == KeyCode.UP) {
+            if (canon.isCanShot()) {
                 canon.setCanShot(false);
                 missileImage = new ImageView(new Image(missile.getShape()));
                 TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
                 missileImage.setY(canonImage.getBoundsInParent().getMinY());
-                missileImage.setX(canonImage.getBoundsInParent().getMinX()+canonImage.getBoundsInParent().getWidth()/2);
+                missileImage.setX(canonImage.getBoundsInParent().getMinX() + canonImage.getBoundsInParent().getWidth() / 2);
                 missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
-                    aliensImages.forEach(alien ->{
-                        if(missileImage.getBoundsInParent().intersects(alien.getBoundsInParent().getMinX()+invaders.getBoundsInParent().getMinX(),
-                                alien.getBoundsInParent().getMinY()+invaders.getBoundsInParent().getMinY(),
-                                alien.getImage().getWidth(),alien.getImage().getHeight())){
-                            invaders.getChildren().remove(alien);
-                            missileTr.stop();
-                            aliensImages.remove(alien);
-                            battleground.getChildren().remove(missileImage);
-                            canon.setCanShot(true);
-                        }
+                            for (Iterator<ImageView> it = aliensImages.iterator(); it.hasNext(); ) {
+                                ImageView alien = it.next();
+                                if (missileImage.getBoundsInParent().intersects(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX(),
+                                        alien.getBoundsInParent().getMinY() + invaders.getBoundsInParent().getMinY(),
+                                        alien.getImage().getWidth(), alien.getImage().getHeight())) {
+                                    invaders.getChildren().remove(alien);
+                                    missileTr.stop();
+                                    it.remove();
+                                    battleground.getChildren().remove(missileImage);
+                                    canon.setCanShot(true);
+                                }
+                            }
+                        });
+                    missileTr.setOnFinished(event1 -> {
+                        battleground.getChildren().remove(missileImage);
+                        canon.setCanShot(true);
                     });
-                });
-                missileTr.setOnFinished(event1 -> {
-                    battleground.getChildren().remove(missileImage);
-                    canon.setCanShot(true);
-                });
-                battleground.getChildren().add(missileImage);
-                missileTr.setByX(0);
-                missileTr.setToY(-battleground.getBoundsInParent().getHeight());
-                missileTr.play();
+                    battleground.getChildren().add(missileImage);
+                    missileTr.setByX(0);
+                    missileTr.setToY(-battleground.getBoundsInParent().getHeight());
+                    missileTr.play();
             }
         }
     }
