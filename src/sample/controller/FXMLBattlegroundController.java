@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import sample.model.Game;
 import sample.model.entities.Missile;
 import sample.model.entities.characters.Canon;
+import sample.model.entities.characters.MissileShooter;
 import sample.model.entities.characters.aliens.Alien;
 import sample.model.entities.characters.aliens.MedInvaders;
 
@@ -27,15 +28,12 @@ import java.util.Iterator;
  * @author ilbenjello
  */
 public class FXMLBattlegroundController {
-    private ImageView canonImage = new ImageView();
     private Canon canon;
     private ArrayList<Alien> aliens;
-    private ArrayList<ImageView> aliensImages;
-    private Missile missile;
-    private ImageView missileImage;
     private MedInvaders mediator;
     private Game game = new Game();
     private Boolean isLaunched = false;
+    private MissileShooter missileShooter;
     @FXML
     Pane battleground;
     @FXML
@@ -53,7 +51,7 @@ public class FXMLBattlegroundController {
     }
 
     private void setKeyEvents(){
-        TranslateTransition transition = new TranslateTransition(Duration.millis(6000), canonImage);
+        TranslateTransition transition = new TranslateTransition(Duration.millis(6000), canon.getImage());
         setPressed(transition);
         setReleased(transition);
     }
@@ -62,32 +60,7 @@ public class FXMLBattlegroundController {
         if (event.getCode() == KeyCode.UP) {
             if (canon.isCanShot()) {
                 canon.setCanShot(false);
-                missileImage = new ImageView(new Image(missile.getShape()));
-                TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
-                missileImage.setY(canonImage.getBoundsInParent().getMinY());
-                missileImage.setX(canonImage.getBoundsInParent().getMinX() + canonImage.getBoundsInParent().getWidth() / 2);
-                missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
-                            for (Iterator<ImageView> it = aliensImages.iterator(); it.hasNext(); ) {
-                                ImageView alien = it.next();
-                                if (missileImage.getBoundsInParent().intersects(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX(),
-                                        alien.getBoundsInParent().getMinY() + invaders.getBoundsInParent().getMinY(),
-                                        alien.getImage().getWidth(), alien.getImage().getHeight())) {
-                                    invaders.getChildren().remove(alien);
-                                    missileTr.stop();
-                                    it.remove();
-                                    battleground.getChildren().remove(missileImage);
-                                    canon.setCanShot(true);
-                                }
-                            }
-                        });
-                    missileTr.setOnFinished(event1 -> {
-                        battleground.getChildren().remove(missileImage);
-                        canon.setCanShot(true);
-                    });
-                    battleground.getChildren().add(missileImage);
-                    missileTr.setByX(0);
-                    missileTr.setToY(-battleground.getBoundsInParent().getHeight());
-                    missileTr.play();
+                missileShooter.canonShot(battleground,invaders,canon,mediator.getListAlien());
             }
         }
     }
@@ -108,13 +81,13 @@ public class FXMLBattlegroundController {
     private void setPressed(TranslateTransition transition) {
         battleground.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.RIGHT){
-                transition.setToX(battleground.getBoundsInParent().getWidth()-canonImage.getImage().getWidth());
-                transition.setDuration(Duration.millis(6000-6000*(canonImage.getBoundsInParent().getMaxX()/battleground.getBoundsInParent().getWidth())));
+                transition.setToX(battleground.getBoundsInParent().getWidth()-canon.getImage().getImage().getWidth());
+                transition.setDuration(Duration.millis(6000-6000*(canon.getImage().getBoundsInParent().getMaxX()/battleground.getBoundsInParent().getWidth())));
                 transition.play();
             }
             if(event.getCode() == KeyCode.LEFT){
                 transition.setToX(battleground.getBoundsInParent().getMinX());
-                transition.setDuration(Duration.millis(6000*(canonImage.getBoundsInParent().getMaxX()/battleground.getBoundsInParent().getWidth())));
+                transition.setDuration(Duration.millis(6000*(canon.getImage().getBoundsInParent().getMaxX()/battleground.getBoundsInParent().getWidth())));
                 transition.play();
             }
             event.consume();
@@ -122,22 +95,22 @@ public class FXMLBattlegroundController {
     }
 
     private void launchGame(){
-        initializeCharacters();
+        initializeGame();
         setKeyEvents();
     }
 
-    private void initializeCharacters(){
+    private void initializeGame(){
         mediator = new MedInvaders();
         mediator.createInvaders(game.getLevel());
+        mediator.initializePositions(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
         aliens = mediator.getListAlien();
         canon = new Canon(100);
-        canonImage = new ImageView(new Image(canon.getSkin()));
-        canonImage.setY(battleground.getBoundsInParent().getHeight() - canonImage.getImage().getHeight());
-        canonImage.setX(0);
-        aliensImages = mediator.createImages(battleground.getBoundsInParent().getWidth(), battleground.getBoundsInParent().getHeight());
-        invaders.getChildren().addAll(aliensImages);
-        battleground.getChildren().add(canonImage);
+        canon.getImage().setY(battleground.getBoundsInParent().getHeight() - canon.getImage().getImage().getHeight());
+        canon.getImage().setX(0);
+        invaders.getChildren().addAll(mediator.getImages());
+        battleground.getChildren().add(canon.getImage());
         mediator.initializeTranslation(invaders, battleground);
-        missile = new Missile();
+        missileShooter = new MissileShooter();
+        //mediator.initializeShot(battleground,invaders,canon,mediator.getImages(),missileShooter);
     }
 }

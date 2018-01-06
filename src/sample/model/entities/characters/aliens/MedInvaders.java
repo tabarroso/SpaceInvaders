@@ -5,16 +5,23 @@
  */
 package sample.model.entities.characters.aliens;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import sample.model.Battleground;
 import sample.model.Position;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
+
 import javafx.animation.TranslateTransition;
 
 import javafx.util.Duration;
+import sample.model.entities.characters.Canon;
+import sample.model.entities.characters.MissileShooter;
 
 /**
  *
@@ -32,21 +39,9 @@ public class MedInvaders {
     private static final double SPACE_Y = 50;
     private static final double MIN_X = 0;
     private static final double MIN_Y = 0;
+
     public MedInvaders(){
         listAlien = new ArrayList();
-    }
-
-    private void queryFireMissile(){
-        int idx = (int)Math.random() * (ARMY+1);
-        int i = 0;
-        Iterator iterator = listAlien.iterator();
-        while(iterator.hasNext()){
-            Alien alien = (Alien)iterator.next();
-            if (i == idx) {
-                alien.fireMissile();
-            }
-            i++;
-        }
     }
 
     public void createInvaders(int level){
@@ -65,22 +60,29 @@ public class MedInvaders {
         }
     }
 
-    public ArrayList<ImageView> createImages(double x, double y){
+    public void initializePositions(double x, double y){
         int cpt = 0;
         Position position = new Position(MIN_X,MIN_Y);
         ArrayList<ImageView> alienImageList = new ArrayList<>();
         ImageView alienImage;
         for (Iterator<Alien> it = listAlien.iterator(); it.hasNext();) {
             Alien alien = it.next();
-            alienImage = new ImageView();
-            alienImage.setImage(new Image(alien.getSkin()));
+            alienImage = alien.getImage();
             calculatePosition(position, x, cpt);
             alienImage.setX(position.getxPosition());
             alienImage.setY(position.getyPosition());
             alienImageList.add(alienImage);
             cpt ++;
         }
-        return alienImageList;
+    }
+
+    public ArrayList<ImageView> getImages(){
+        ArrayList<ImageView> images = new ArrayList<>();
+        for (Iterator<Alien> it = listAlien.iterator(); it.hasNext();){
+            Alien alien = it.next();
+            images.add(alien.getImage());
+        }
+        return images;
     }
 
     private void calculatePosition(Position position, double x, int cpt){
@@ -129,5 +131,16 @@ public class MedInvaders {
         });
         ttx.setToX(battleground.getBoundsInParent().getWidth()-aliens.getBoundsInParent().getWidth());
         ttx.play();
+    }
+
+    public void initializeShot(Pane battleground, Pane invaders, Canon canon, ArrayList<ImageView> listImages, MissileShooter missileShooter){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+            Random rn = new Random();
+            int answer = rn.nextInt(ARMY-1) + 1;
+            ImageView alienImage = listImages.get(answer);
+            missileShooter.alienShot(battleground,invaders,canon,alienImage);
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 }

@@ -5,6 +5,9 @@
  */
 package sample.model.entities.characters;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  *
  * @author ilbenjello
@@ -13,12 +16,18 @@ public class Canon extends Character {
     private int health;
     private boolean canShot;
     private final static int HEALTH = 5;
-    
+    private ImageView image;
+
+    public ImageView getImage() {
+        return image;
+    }
+
     public Canon(int speed){
         super(speed);
         this.setSkin("/sample/resources/canon.jpg");
         this.health = HEALTH;
         canShot = true;
+        image = new ImageView(new Image(this.getSkin()));
     }
     private int getHealth(){
         return health;

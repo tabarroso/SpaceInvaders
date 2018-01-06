@@ -5,6 +5,8 @@
  */
 package sample.model.entities.characters.aliens;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import sample.model.entities.characters.Character;
 
 /**
@@ -16,6 +18,11 @@ public class Alien extends Character {
     private static final String MEDSKIN = "/sample/resources/Mediuminvader.png";
     private static final String SMALLSKIN = "/sample/resources/Smallinvader.png";
     private MedInvaders medInvaders;
+    private ImageView image;
+
+    public ImageView getImage() {
+        return image;
+    }
 
     public Alien(MedInvaders medInvaders, TypeAlien type, int speed){
         super(speed);
@@ -28,9 +35,6 @@ public class Alien extends Character {
                 break;
         }
         this.medInvaders = medInvaders;
-    }
-    
-    public void fireMissile(){
-        
+        image = new ImageView(new Image(this.getSkin()));
     }
 }
