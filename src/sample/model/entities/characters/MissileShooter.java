@@ -3,6 +3,7 @@ package sample.model.entities.characters;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.model.entities.Missile;
@@ -16,7 +17,7 @@ public class MissileShooter {
     public MissileShooter(){
     }
 
-    public void canonShot(Pane battleground, Pane invaders, Canon canon, ArrayList<Alien> aliens){
+    public void canonShot(Pane battleground, GridPane invaders, Canon canon, ArrayList<Alien> aliens){
         Missile missile = new Missile();
         ImageView missileImage = new ImageView(new Image(missile.getShape()));
         TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
@@ -47,7 +48,7 @@ public class MissileShooter {
         missileTr.play();
     }
 
-    public void alienShot(Pane battleground, Pane invaders, Canon canon, ImageView alien){
+    public void alienShot(Pane battleground, GridPane invaders, Canon canon, ImageView alien){
         Missile missile = new Missile();
         ImageView missileImage = new ImageView(new Image(missile.getShape()));
         TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
@@ -55,9 +56,9 @@ public class MissileShooter {
         missileImage.setX(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX() / 2);
         missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
             if (missileImage.getBoundsInParent().intersects(canon.getImage().getBoundsInParent())) {
-                invaders.getChildren().remove(alien);
                 missileTr.stop();
                 battleground.getChildren().remove(missileImage);
+                canon.setHealth(canon.getHealth()-1);
             }
         });
         missileTr.setOnFinished(event1 -> {

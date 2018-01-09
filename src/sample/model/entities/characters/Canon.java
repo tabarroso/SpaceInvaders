@@ -29,10 +29,10 @@ public class Canon extends Character {
         canShot = true;
         image = new ImageView(new Image(this.getSkin()));
     }
-    private int getHealth(){
+    public int getHealth(){
         return health;
     }
-    private void setHealth(int health){
+    public void setHealth(int health){
         this.health = health;
     }
 
