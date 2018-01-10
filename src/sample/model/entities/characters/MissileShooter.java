@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MissileShooter {
+    private final static double MIN = 0.0;
 
     public MissileShooter(){
     }
@@ -36,11 +37,12 @@ public class MissileShooter {
                     battleground.getChildren().remove(missileImage);
                     canon.setCanShot(true);
                 }
+                if(missileImage.getBoundsInParent().getMinY() <= MIN){
+                    missileTr.stop();
+                    battleground.getChildren().remove(missileImage);
+                    canon.setCanShot(true);
+                }
             }
-        });
-        missileTr.setOnFinished(event1 -> {
-            battleground.getChildren().remove(missileImage);
-            canon.setCanShot(true);
         });
         battleground.getChildren().add(missileImage);
         missileTr.setByX(0);
@@ -59,6 +61,10 @@ public class MissileShooter {
                 missileTr.stop();
                 battleground.getChildren().remove(missileImage);
                 canon.setHealth(canon.getHealth()-1);
+            }
+            if(missileImage.getBoundsInParent().getMaxY() >= battleground.getHeight()){
+                missileTr.stop();
+                battleground.getChildren().remove(missileImage);
             }
         });
         missileTr.setOnFinished(event1 -> {

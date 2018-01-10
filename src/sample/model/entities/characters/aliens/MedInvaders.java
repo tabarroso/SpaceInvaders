@@ -30,11 +30,11 @@ import sample.model.entities.characters.MissileShooter;
  */
 public class MedInvaders {
     private ArrayList<Alien> listAlien;
-
     private static final int ARMY = 55;
     private static final int SMALL = 11;
     private static final int MEDIUM = 33;
     private static final int BIG = 55;
+    private static final double Y_TRANS = 55;
 
     public MedInvaders(){
         listAlien = new ArrayList();
@@ -91,7 +91,7 @@ public class MedInvaders {
         ttx.setOnFinished(event->{
             if(aliens.getBoundsInParent().getMaxY() <= (battleground.getBoundsInParent().getHeight()/100)*80){
                 tty.setByX(0);
-                tty.setByY(50);
+                tty.setByY(battleground.getBoundsInParent().getHeight()/40);
                 tty.setAutoReverse(true);
                 tty.play();
             }

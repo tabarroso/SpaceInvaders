@@ -38,6 +38,7 @@ public class FXMLBattlegroundController {
     private static final int NB_LINE = 5;
     private static final int MIN_HEIGHT = 0;
     private static final int MIN_WIDTH = 0;
+    private Boolean isLaunched = false;
     private Label timerLabel = new Label();
     @FXML
     Pane battleground;
@@ -46,8 +47,13 @@ public class FXMLBattlegroundController {
 
     @FXML
     private void initialize(){
-        battleground.setStyle("-fx-background-color: #000000;");
-        launchGame();
+        battleground.setOnMouseClicked(event -> {
+        if(!isLaunched){
+            battleground.setStyle("-fx-background-color: #000000;");
+            isLaunched = true;
+            launchGame();
+        }
+    });
     }
 
     private void setKeyEvents(){
