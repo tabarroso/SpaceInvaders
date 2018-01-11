@@ -18,12 +18,12 @@ public class MissileShooter {
     public MissileShooter(){
     }
 
-    public void canonShot(Pane battleground, GridPane invaders, Canon canon, ArrayList<Alien> aliens){
+    public void canonShot(Pane battleground, GridPane invaders, Canon canonAnimation, ArrayList<Alien> aliens){
         Missile missile = new Missile();
         ImageView missileImage = new ImageView(new Image(missile.getShape()));
         TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
-        missileImage.setY(canon.getImage().getBoundsInParent().getMinY());
-        missileImage.setX(canon.getImage().getBoundsInParent().getMinX() + canon.getImage().getBoundsInParent().getWidth() / 2);
+        missileImage.setY(canonAnimation.getImage().getBoundsInParent().getMinY());
+        missileImage.setX(canonAnimation.getImage().getBoundsInParent().getMinX() + canonAnimation.getImage().getBoundsInParent().getWidth() / 2);
         missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
             for (Iterator<Alien> it = aliens.iterator(); it.hasNext(); ) {
                 Alien alien = it.next();
@@ -35,12 +35,12 @@ public class MissileShooter {
                     missileTr.stop();
                     it.remove();
                     battleground.getChildren().remove(missileImage);
-                    canon.setCanShot(true);
+                    canonAnimation.setCanShot(true);
                 }
                 if(missileImage.getBoundsInParent().getMinY() <= MIN){
                     missileTr.stop();
                     battleground.getChildren().remove(missileImage);
-                    canon.setCanShot(true);
+                    canonAnimation.setCanShot(true);
                 }
             }
         });
@@ -50,17 +50,17 @@ public class MissileShooter {
         missileTr.play();
     }
 
-    public void alienShot(Pane battleground, GridPane invaders, Canon canon, ImageView alien){
+    public void alienShot(Pane battleground, GridPane invaders, Canon canonAnimation, ImageView alien){
         Missile missile = new Missile();
         ImageView missileImage = new ImageView(new Image(missile.getShape()));
         TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
         missileImage.setY(alien.getBoundsInParent().getMinY() + invaders.getBoundsInParent().getMinY());
         missileImage.setX(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX() / 2);
         missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
-            if (missileImage.getBoundsInParent().intersects(canon.getImage().getBoundsInParent())) {
+            if (missileImage.getBoundsInParent().intersects(canonAnimation.getImage().getBoundsInParent())) {
                 missileTr.stop();
                 battleground.getChildren().remove(missileImage);
-                canon.setHealth(canon.getHealth()-1);
+                canonAnimation.setHealth(canonAnimation.getHealth()-1);
             }
             if(missileImage.getBoundsInParent().getMaxY() >= battleground.getHeight()){
                 missileTr.stop();
