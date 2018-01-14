@@ -5,7 +5,6 @@
  */
 package sample.model.entities.characters;
 
-import sample.model.Position;
 import sample.model.entities.Entity;
 import sample.model.entities.Missile;
 

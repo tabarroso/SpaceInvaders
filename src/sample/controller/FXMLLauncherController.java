@@ -59,19 +59,17 @@ public class FXMLLauncherController {
         game.getScores().add(new Score(2000, "ilyace"));
         game.getScores().add(new Score(3000, "the king"));
         bestScoresList.setItems(gameObjectProperty.getValue().scoresProperty());
-        bestScoresList.setCellFactory((param) -> {
-            return new ListCell<Score>(){
-                @Override
-                protected void updateItem(Score score, boolean empty) {
-                    super.updateItem(score, empty);
-                    if (! empty) {
-                        textProperty().bind(Bindings.concat(score.pseudoPropProperty()," : ",score.scorePropProperty()));
-                    } else {
-                        textProperty().unbind();
-                        setText("");
-                    }
+        bestScoresList.setCellFactory((param) -> new ListCell<Score>(){
+            @Override
+            protected void updateItem(Score score, boolean empty) {
+                super.updateItem(score, empty);
+                if (! empty) {
+                    textProperty().bind(Bindings.concat(score.pseudoPropProperty()," : ",score.scorePropProperty()));
+                } else {
+                    textProperty().unbind();
+                    setText("");
                 }
-            };
+            }
         });
     }
 

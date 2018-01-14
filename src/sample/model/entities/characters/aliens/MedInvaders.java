@@ -8,13 +8,9 @@ package sample.model.entities.characters.aliens;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import sample.model.Battleground;
-import sample.model.Position;
 
 import java.util.*;
 
@@ -85,43 +81,12 @@ public class MedInvaders {
         return listAlien;
     }
 
-    public void initializeTranslation(GridPane aliens, Pane battleground){
-        TranslateTransition tty = new TranslateTransition(Duration.millis(1500), aliens);
-        TranslateTransition ttx = new TranslateTransition(Duration.millis(3500), aliens);
-        ttx.setOnFinished(event->{
-            if(aliens.getBoundsInParent().getMaxY() <= (battleground.getBoundsInParent().getHeight()/100)*80){
-                tty.setByX(0);
-                tty.setByY(battleground.getBoundsInParent().getHeight()/40);
-                tty.setAutoReverse(true);
-                tty.play();
-            }
-            else{
-                tty.setByX(0);
-                tty.setByY(0);
-                tty.setAutoReverse(true);
-                tty.play();
-            }
-        });
-        tty.setOnFinished(event -> {
-            ttx.setByY(0);
-            if(aliens.getBoundsInParent().getMinX() == 0){
-                ttx.setToX(battleground.getBoundsInParent().getWidth()-aliens.getBoundsInParent().getWidth());
-            }
-            else{
-                ttx.setToX(battleground.getBoundsInParent().getMinX());
-            }
-            ttx.play();
-        });
-        ttx.setToX(battleground.getBoundsInParent().getWidth()-aliens.getBoundsInParent().getWidth());
-        ttx.play();
-    }
-
     public void initializeShot(Pane battleground, GridPane invaders, Canon canon, ArrayList<ImageView> listImages, MissileShooter missileShooter){
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), ev -> {
             Random rn = new Random();
             int answer = rn.nextInt(ARMY-1) + 1;
             ImageView alienImage = listImages.get(answer);
-            missileShooter.alienShot(battleground,invaders,canon,alienImage);
+            missileShooter.alienShot(battleground,invaders, canon,alienImage);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

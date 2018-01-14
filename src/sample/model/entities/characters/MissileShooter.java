@@ -54,8 +54,8 @@ public class MissileShooter {
         Missile missile = new Missile();
         ImageView missileImage = new ImageView(new Image(missile.getShape()));
         TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
-        missileImage.setY(alien.getBoundsInParent().getMinY() + invaders.getBoundsInParent().getMinY());
-        missileImage.setX(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX() / 2);
+        missileImage.setY(alien.getBoundsInParent().getMaxY() + invaders.getBoundsInParent().getMinY());
+        missileImage.setX(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX() + alien.getImage().getWidth()/ 2);
         missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
             if (missileImage.getBoundsInParent().intersects(canon.getImage().getBoundsInParent())) {
                 missileTr.stop();
@@ -67,9 +67,7 @@ public class MissileShooter {
                 battleground.getChildren().remove(missileImage);
             }
         });
-        missileTr.setOnFinished(event1 -> {
-            battleground.getChildren().remove(missileImage);
-        });
+        missileTr.setOnFinished(event1 -> battleground.getChildren().remove(missileImage));
         battleground.getChildren().add(missileImage);
         missileTr.setByX(0);
         missileTr.setToY(battleground.getBoundsInParent().getHeight());
