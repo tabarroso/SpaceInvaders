@@ -5,6 +5,8 @@
  */
 package sample.model.entities.characters;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -13,7 +15,7 @@ import javafx.scene.image.ImageView;
  * @author ilbenjello
  */
 public class Canon extends Character {
-    private int health;
+    private IntegerProperty health = new SimpleIntegerProperty();
     private boolean canShot;
     private final static int HEALTH = 5;
     private ImageView image;
@@ -22,18 +24,23 @@ public class Canon extends Character {
         return image;
     }
 
-    public Canon(int speed){
-        super(speed);
+    public Canon(){
+        super();
         this.setSkin("/sample/resources/canon.jpg");
-        this.health = HEALTH;
         canShot = true;
         image = new ImageView(new Image(this.getSkin()));
     }
-    public int getHealth(){
+
+    public int getHealth() {
+        return health.get();
+    }
+
+    public IntegerProperty healthProperty() {
         return health;
     }
-    public void setHealth(int health){
-        this.health = health;
+
+    public void setHealth(int health) {
+        this.health.set(health);
     }
 
     public boolean isCanShot(){

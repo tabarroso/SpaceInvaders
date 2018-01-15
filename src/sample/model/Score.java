@@ -25,8 +25,6 @@ public class Score{
         return scoreProp.get();
     }
 
-
-
     public IntegerProperty scorePropProperty() {
         return scoreProp;
     }

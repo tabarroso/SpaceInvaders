@@ -27,9 +27,9 @@
          </rowConstraints>
          <children>
             <Label text="&lt;Score&gt;" />
-            <Label text="Label" GridPane.rowIndex="1" />
+            <Label fx:id="scoreLabel" text="Label" GridPane.rowIndex="1" />
             <Label text="&lt;High-Score&gt;" GridPane.columnIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="bestScoreLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane GridPane.rowIndex="2">
@@ -41,12 +41,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Label" />
+            <Label text="Health" />
+            <HBox fx:id="healthBox" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <Pane fx:id="battleground" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.fillHeight="true" GridPane.fillWidth="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
          <children>
-            <GridPane fx:id="invaders"/>
+            <GridPane fx:id="invaders" />
          </children></Pane>
    </children>
 </GridPane>

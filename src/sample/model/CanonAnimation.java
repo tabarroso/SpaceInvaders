@@ -1,7 +1,6 @@
 package sample.model;
 
 import javafx.animation.TranslateTransition;
-import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -14,15 +13,11 @@ import sample.model.entities.characters.aliens.MedInvaders;
 public class CanonAnimation {
     private Canon canon;
     private MissileShooter missileShooter;
-    private MedInvaders mediator;
     private Pane battleground;
-    private GridPane invaders;
 
-    public CanonAnimation(Pane battleground, GridPane invaders, MedInvaders mediator, MissileShooter missileShooter) {
-        this.canon = new Canon(100);
+    public CanonAnimation(Pane battleground, MissileShooter missileShooter, Canon canon) {
+        this.canon = canon;
         this.battleground = battleground;
-        this.invaders = invaders;
-        this.mediator = mediator;
         this.missileShooter = missileShooter;
     }
 
@@ -30,7 +25,7 @@ public class CanonAnimation {
         if (event.getCode() == KeyCode.UP) {
             if (canon.isCanShot()) {
                 canon.setCanShot(false);
-                missileShooter.canonShot(battleground, invaders, canon, mediator.getListAlien());
+                missileShooter.canonShot();
             }
         }
     }
@@ -62,8 +57,5 @@ public class CanonAnimation {
             upShotCmd(event);
             event.consume();
         });
-    }
-    public Canon getCanon(){
-        return this.canon;
     }
 }

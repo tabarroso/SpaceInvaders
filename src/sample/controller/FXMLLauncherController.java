@@ -36,6 +36,7 @@ public class FXMLLauncherController {
         try {
             Scene newScene = new Scene(FXMLLoader.load(getClass().getResource("/sample/vue/FXMLBattleground.fxml")));
             Stage newWindow = new Stage();
+            newWindow.setTitle(pseudoField.getText());
             newWindow.setScene(newScene);
             newWindow.initOwner(Main.getPrimaryStage());
             newWindow.initModality(Modality.WINDOW_MODAL);
@@ -54,7 +55,6 @@ public class FXMLLauncherController {
 
     @FXML
     private void initialize(){
-        game.pseudoProperty().bind(pseudoField.textProperty());
         game.getScores().add(new Score(1500, "tanguy"));
         game.getScores().add(new Score(2000, "ilyace"));
         game.getScores().add(new Score(3000, "the king"));
@@ -71,13 +71,5 @@ public class FXMLLauncherController {
                 }
             }
         });
-    }
-
-    public Game getGameObjectProperty() {
-        return gameObjectProperty.get();
-    }
-
-    public ObjectProperty<Game> gameObjectPropertyProperty() {
-        return gameObjectProperty;
     }
 }

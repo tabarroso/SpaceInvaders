@@ -24,8 +24,8 @@ public class Alien extends Character {
         return image;
     }
 
-    public Alien(MedInvaders medInvaders, TypeAlien type, int speed){
-        super(speed);
+    public Alien(MedInvaders medInvaders, TypeAlien type){
+        super();
         switch (type){
             case BIG:this.setSkin(BIGSKIN);
                 break;

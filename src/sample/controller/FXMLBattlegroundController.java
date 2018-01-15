@@ -26,6 +26,10 @@ public class FXMLBattlegroundController{
     Pane battleground;
     @FXML
     GridPane invaders;
+    @FXML
+    Label scoreLabel;
+    @FXML
+    Label bestScoreLabel;
 
     @FXML
     private void initialize(){
@@ -35,13 +39,10 @@ public class FXMLBattlegroundController{
             isLaunched = true;
             initializeGrid();
             gameInitializer = new GameInitializer(battleground, invaders);
-            launchGame();
+            gameInitializer.initializeGame();
+            gameInitializer.initializeBindings(scoreLabel, bestScoreLabel);
         }
     });
-    }
-
-    private void launchGame(){
-        gameInitializer.initializeGame();
     }
 
     /**

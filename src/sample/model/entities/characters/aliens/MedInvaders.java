@@ -36,18 +36,16 @@ public class MedInvaders {
         listAlien = new ArrayList();
     }
 
-    public void createInvaders(int level){
-        int i;
-        int speed = level/10;
-        for(i=0; i < ARMY; i++){
+    public void createInvaders(){
+        for(int i=0; i < ARMY; i++){
             if(i < SMALL){
-                listAlien.add(new Alien(this, TypeAlien.SMALL, speed));
+                listAlien.add(new Alien(this, TypeAlien.SMALL));
             }
             if(i >= SMALL && i < MEDIUM){
-                listAlien.add(new Alien(this, TypeAlien.MEDIUM, speed));
+                listAlien.add(new Alien(this, TypeAlien.MEDIUM));
             }
             if(i >= MEDIUM && i < BIG){
-                listAlien.add(new Alien(this, TypeAlien.BIG, speed));
+                listAlien.add(new Alien(this, TypeAlien.BIG));
             }
         }
     }
@@ -86,7 +84,7 @@ public class MedInvaders {
             Random rn = new Random();
             int answer = rn.nextInt(ARMY-1) + 1;
             ImageView alienImage = listImages.get(answer);
-            missileShooter.alienShot(battleground,invaders, canon,alienImage);
+            missileShooter.alienShot(alienImage);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
