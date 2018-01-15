@@ -50,7 +50,6 @@ public class Game {
         }
         return bestScore.scorePropProperty();
     }
-
     public ReadOnlyListProperty<Score> scoresProperty() {
         return scores;
     }

@@ -79,12 +79,12 @@ public class MedInvaders {
         return listAlien;
     }
 
-    public void initializeShot(Pane battleground, GridPane invaders, Canon canon, ArrayList<ImageView> listImages, MissileShooter missileShooter){
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), ev -> {
+    public void initializeShot(ArrayList<ImageView> listImages, MissileShooter missileShooter, int level){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4-0.05*level), event -> {
             Random rn = new Random();
             int answer = rn.nextInt(ARMY-1) + 1;
             ImageView alienImage = listImages.get(answer);
-            missileShooter.alienShot(alienImage);
+            missileShooter.alienShot(alienImage, level);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

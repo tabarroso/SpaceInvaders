@@ -15,6 +15,8 @@ import sample.controller.FXMLLauncherController;
 import sample.model.entities.characters.MissileShooter;
 import sample.model.entities.characters.aliens.MedInvaders;
 
+import javax.swing.event.ListDataEvent;
+
 public class GameInitializer {
     private Game game;
     private CanonAnimation canonAnimation;
@@ -22,6 +24,7 @@ public class GameInitializer {
     private AlienAnimation alienAnimation;
     private Pane battleground;
     private GridPane invaders;
+    private int level;
     private IntegerProperty time = new SimpleIntegerProperty(COUNTDOWN_START);
     private static final int NB_COL = 11;
     private static final int NB_LINE = 5;
@@ -31,20 +34,24 @@ public class GameInitializer {
         this.battleground = battleground;
         this.invaders = invaders;
         game = FXMLLauncherController.getGame();
+        level = 0;
         missileShooter = new MissileShooter(battleground,invaders,game.getCanon(),game.getAlienList());
         canonAnimation = new CanonAnimation(battleground, missileShooter, game.getCanon());
         alienAnimation = new AlienAnimation(battleground, invaders);
     }
 
     public void initializeGame(){
-        game.getMediator().createInvaders();
-        game.getMediator().initializePositions(invaders,NB_COL,NB_LINE);
+        initializeLevel();
         game.getCanon().getImage().setY(battleground.getBoundsInParent().getHeight() - game.getCanon().getImage().getImage().getHeight());
         game.getCanon().getImage().setX(0);
         battleground.getChildren().add(game.getCanon().getImage());
         startCountdown();
     }
-
+    public void initializeLevel(){
+        game.getMediator().createInvaders();
+        game.getMediator().initializePositions(invaders,NB_COL,NB_LINE);
+        this.level +=1;
+    }
     private void setKeyEvents(){
         TranslateTransition transition = new TranslateTransition(Duration.millis(6000), game.getCanon().getImage());
         canonAnimation.setPressed(transition);
@@ -64,12 +71,18 @@ public class GameInitializer {
             battleground.getChildren().remove(countdown);
             setKeyEvents();
             alienAnimation.initializeTranslation();
-            game.getMediator().initializeShot(battleground,invaders, game.getCanon() ,game.getMediator().getImages(),missileShooter);
+            game.getMediator().initializeShot(game.getMediator().getImages(),missileShooter, level);
         });
     }
 
     public void initializeBindings(Label scoreLabel, Label bestScoreLabel){
         bestScoreLabel.textProperty().bind(game.bestScoreProperty().asString());
+    }
+
+    private void nextLevel(){
+        game.getMediator().getListAlien().isEmpty(event -> {
+
+        });
     }
 }
 

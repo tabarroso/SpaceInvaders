@@ -51,10 +51,10 @@ public class MissileShooter {
         missileTr.play();
     }
 
-    public void alienShot(ImageView alien){
+    public void alienShot(ImageView alien, int level){
         Missile missile = new Missile();
         ImageView missileImage = new ImageView(new Image(missile.getShape()));
-        TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000), missileImage);
+        TranslateTransition missileTr = new TranslateTransition(Duration.millis(6000 -level*100), missileImage);
         missileImage.setY(alien.getBoundsInParent().getMaxY() + invaders.getBoundsInParent().getMinY());
         missileImage.setX(alien.getBoundsInParent().getMinX() + invaders.getBoundsInParent().getMinX() + alien.getImage().getWidth()/ 2);
         missileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {
