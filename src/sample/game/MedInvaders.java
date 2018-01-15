@@ -3,22 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sample.model.entities.characters.aliens;
+package sample.game;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 import java.util.*;
 
-import javafx.animation.TranslateTransition;
-
 import javafx.util.Duration;
-import sample.model.entities.characters.Canon;
-import sample.model.entities.characters.MissileShooter;
+import sample.entities.characters.aliens.Alien;
+import sample.entities.characters.aliens.TypeAlien;
 
 /**
  *
@@ -30,7 +27,6 @@ public class MedInvaders {
     private static final int SMALL = 11;
     private static final int MEDIUM = 33;
     private static final int BIG = 55;
-    private static final double Y_TRANS = 55;
 
     public MedInvaders(){
         listAlien = new ArrayList();
@@ -79,8 +75,8 @@ public class MedInvaders {
         return listAlien;
     }
 
-    public void initializeShot(ArrayList<ImageView> listImages, MissileShooter missileShooter, int level){
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4-0.05*level), event -> {
+    public void queryShot(ArrayList<ImageView> listImages, MissileShooter missileShooter, int level){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4-0.05*level), event2 -> {
             Random rn = new Random();
             int answer = rn.nextInt(ARMY-1) + 1;
             ImageView alienImage = listImages.get(answer);

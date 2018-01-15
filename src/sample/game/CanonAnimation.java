@@ -1,14 +1,11 @@
-package sample.model;
+package sample.game;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import sample.model.entities.characters.Canon;
-import sample.model.entities.characters.MissileShooter;
-import sample.model.entities.characters.aliens.MedInvaders;
+import sample.entities.characters.Canon;
 
 public class CanonAnimation {
     private Canon canon;

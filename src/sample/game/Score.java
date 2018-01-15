@@ -1,4 +1,4 @@
-package sample.model;
+package sample.game;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -6,19 +6,15 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Score{
-    private StringProperty pseudoProp = new SimpleStringProperty();
+    private String pseudo;
     private IntegerProperty scoreProp = new SimpleIntegerProperty();
 
-    public String getPseudoProp() {
-        return pseudoProp.get();
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public StringProperty pseudoPropProperty() {
-        return pseudoProp;
-    }
-
-    public void setPseudoProp(String pseudoProp) {
-        this.pseudoProp.set(pseudoProp);
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public int getScoreProp() {
@@ -35,6 +31,6 @@ public class Score{
 
     public Score(int score, String pseudo){
         this.setScoreProp(score);
-        this.setPseudoProp(pseudo);
+        this.setPseudo(pseudo);
     }
 }
