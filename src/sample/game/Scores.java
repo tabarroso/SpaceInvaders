@@ -1,39 +1,29 @@
-package sample.model;
+package sample.game;
 
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ReadOnlyListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import sample.model.entities.characters.Canon;
-import sample.model.entities.characters.aliens.Alien;
-import sample.model.entities.characters.aliens.MedInvaders;
-import sample.model.entities.characters.aliens.TypeAlien;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Game {
-    private Canon canon;
-    private MedInvaders mediator;
+public class Scores {
     private ObservableList<Score> scoresObs = FXCollections.observableArrayList();
     private ListProperty<Score> scores = new SimpleListProperty<>(scoresObs);
+    private Score currentScore;
 
-    public Game() {
-        this.canon = new Canon();
-        this.mediator = new MedInvaders();
+    public Scores(String pseudo) {
+        this.currentScore = new Score(0,pseudo);
     }
 
-    public Canon getCanon() {
-        return canon;
+    public Score getCurrentScore() {
+        return currentScore;
     }
 
-    public MedInvaders getMediator() {
-        return mediator;
-    }
-
-    public ArrayList<Alien> getAlienList(){
-        return mediator.getListAlien();
+    public void upCurrentScore(int score){
+        currentScore.setScoreProp(currentScore.getScoreProp()+score);
     }
 
     public ObservableList<Score> getScores() {

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sample.model.entities.characters.aliens;
+package sample.entities.characters.aliens;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sample.model.entities.characters.Character;
+import sample.entities.characters.Character;
+import sample.game.MedInvaders;
 
 /**
  *

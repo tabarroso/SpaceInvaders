@@ -1,19 +1,25 @@
-package sample.model;
+package sample.game;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import sample.controller.FXMLLauncherController;
-import sample.model.entities.characters.MissileShooter;
-import sample.model.entities.characters.aliens.MedInvaders;
 
 public class GameInitializer {
     private Game game;
@@ -31,7 +37,7 @@ public class GameInitializer {
         this.battleground = battleground;
         this.invaders = invaders;
         game = FXMLLauncherController.getGame();
-        missileShooter = new MissileShooter(battleground,invaders,game.getCanon(),game.getAlienList());
+        missileShooter = new MissileShooter(battleground,invaders,game);
         canonAnimation = new CanonAnimation(battleground, missileShooter, game.getCanon());
         alienAnimation = new AlienAnimation(battleground, invaders);
     }
@@ -43,6 +49,18 @@ public class GameInitializer {
         game.getCanon().getImage().setX(0);
         battleground.getChildren().add(game.getCanon().getImage());
         startCountdown();
+    }
+
+    private void setListeners(){
+        game.healthProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.intValue() == 0){
+                gameOver();
+            }
+        });
+    }
+
+    private void gameOver(){
+
     }
 
     private void setKeyEvents(){
@@ -64,12 +82,14 @@ public class GameInitializer {
             battleground.getChildren().remove(countdown);
             setKeyEvents();
             alienAnimation.initializeTranslation();
-            game.getMediator().initializeShot(battleground,invaders, game.getCanon() ,game.getMediator().getImages(),missileShooter);
+            game.getMediator().queryShot(game.getMediator().getImages(),missileShooter);
         });
     }
 
-    public void initializeBindings(Label scoreLabel, Label bestScoreLabel){
+    public void initializeBindings(Label scoreLabel, Label bestScoreLabel, Label healthLabel){
         bestScoreLabel.textProperty().bind(game.bestScoreProperty().asString());
+        scoreLabel.textProperty().bind(game.getCurrentScore().scorePropProperty().asString());
+        healthLabel.textProperty().bind(game.healthProperty().asString());
     }
 }
 

@@ -1,4 +1,4 @@
-package sample.model.entities.characters;
+package sample.game;
 
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
@@ -6,8 +6,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import sample.model.entities.Missile;
-import sample.model.entities.characters.aliens.Alien;
+import sample.entities.Missile;
+import sample.entities.characters.Canon;
+import sample.entities.characters.aliens.Alien;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,13 +18,16 @@ public class MissileShooter {
     private GridPane invaders;
     private Canon canon;
     private ArrayList<Alien> aliens;
+    private Game game;
     private final static double MIN = 0.0;
+    private final static int POINT_PER_KILL = 25;
 
-    public MissileShooter(Pane battleground, GridPane invaders, Canon canon, ArrayList<Alien> aliens){
+    public MissileShooter(Pane battleground, GridPane invaders, Game game){
+        this.game = game;
         this.battleground = battleground;
         this.invaders = invaders;
-        this.canon = canon;
-        this.aliens = aliens;
+        this.canon = game.getCanon();
+        this.aliens = game.getAlienList();
     }
 
     public void canonShot(){
@@ -97,6 +101,7 @@ public class MissileShooter {
         it.remove();
         battleground.getChildren().remove(missileImage);
         canon.setCanShot(true);
+        game.upCurrentScore(POINT_PER_KILL);
     }
 
     private boolean isIntersectsCanon(ImageView missileImage, ImageView alienImage) {

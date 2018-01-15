@@ -7,9 +7,13 @@ package sample.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import sample.model.GameInitializer;
+import sample.game.GameInitializer;
 
 /**
  *
@@ -30,6 +34,10 @@ public class FXMLBattlegroundController{
     Label scoreLabel;
     @FXML
     Label bestScoreLabel;
+    @FXML
+    Label healthLabel;
+    @FXML
+    ImageView healthImageView;
 
     @FXML
     private void initialize(){
@@ -40,7 +48,7 @@ public class FXMLBattlegroundController{
             initializeGrid();
             gameInitializer = new GameInitializer(battleground, invaders);
             gameInitializer.initializeGame();
-            gameInitializer.initializeBindings(scoreLabel, bestScoreLabel);
+            gameInitializer.initializeBindings(scoreLabel, bestScoreLabel, healthLabel);
         }
     });
     }
