@@ -11,20 +11,38 @@ import sample.entities.characters.Character;
 import sample.game.MedInvaders;
 
 /**
- *
- * @author ilbenjello
+ * Define an alien
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ * @version 1.0
  */
 public class Alien extends Character {
+    /**
+     * The path to BIGSKIN resource
+     */
     private static final String BIGSKIN = "/sample/resources/Largeinvader.png";
+    /**
+     * The path to MEDSKIN resource
+     */
     private static final String MEDSKIN = "/sample/resources/Mediuminvader.png";
+    /**
+     * The path to SMALLSKIN resource
+     */
     private static final String SMALLSKIN = "/sample/resources/Smallinvader.png";
+    /**
+     * Not used yet
+     */
     private MedInvaders medInvaders;
+    /**
+     * The alien ImageView
+     */
     private ImageView image;
 
-    public ImageView getImage() {
-        return image;
-    }
-
+    /**
+     * Constructor
+     * @param medInvaders
+     * @param type
+     */
     public Alien(MedInvaders medInvaders, TypeAlien type){
         super();
         switch (type){
@@ -37,5 +55,13 @@ public class Alien extends Character {
         }
         this.medInvaders = medInvaders;
         image = new ImageView(new Image(this.getSkin()));
+    }
+
+    /**
+     *
+     * @return the alien's ImageView
+     */
+    public ImageView getImage() {
+        return image;
     }
 }

@@ -6,9 +6,11 @@
 package sample.entities.characters.aliens;
 
 /**
- *
- * @author ilbenjello
+ *  Enum the different types of aliens
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ * @version 1.0
  */
 public enum TypeAlien {
-    BIG, MEDIUM, SMALL;
+    BIG, MEDIUM, SMALL
 }

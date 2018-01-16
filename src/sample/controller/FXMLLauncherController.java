@@ -19,17 +19,35 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Control the FXMLLauncher view
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ * @version 1.0
+ */
 public class FXMLLauncherController {
-
+    /**
+     * Use to communicate the scores and the pseudo
+     */
     private static Game game = new Game();
+    /**
+     * The battleground window
+     */
     private static Stage newWindow;
-
+    /**
+     * Used to display the score list
+     */
     @FXML
     ListView<Score> bestScoresList;
-
+    /**
+     * Used to enter the pseudo
+     */
     @FXML
     TextField pseudoField;
 
+    /**
+     * Load the battleground window when we click on the start button
+     */
     @FXML
     private void onClickStart(){
         try {
@@ -45,17 +63,31 @@ public class FXMLLauncherController {
         }
     }
 
+    /**
+     * Close the window
+     */
     @FXML
     private void onClickQuit(){
         Main.getPrimaryStage().close();
     }
 
+    /**
+     *
+     * @return the game
+     */
     public static Game getGame(){ return game; }
 
+    /**
+     *
+     * @return the battleground stage
+     */
     public static Stage getGameStage(){
         return newWindow;
     }
 
+    /**
+     * Initialize the window
+     */
     @FXML
     private void initialize(){
         game.pseudoProperty().bind(pseudoField.textProperty());
