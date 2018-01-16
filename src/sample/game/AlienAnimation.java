@@ -13,6 +13,7 @@ public class AlienAnimation{
     private TranslateTransition tty;
     private TranslateTransition ttx;
     private TranslateTransition ttd;
+    private static int POSITION_CORRECT = 75;
 
     public AlienAnimation(Pane battleground, GridPane invaders){
         this.battleground = battleground;
@@ -24,55 +25,59 @@ public class AlienAnimation{
     public void initializeTranslation(){
         ttx.setOnFinished(event->{
             if(invaders.getBoundsInParent().getMaxY() <= (battleground.getBoundsInParent().getHeight()/100)*80){
-                goDown(tty);
+                goDown();
             }
             else{
-                doNothing(tty);
+                doNothing();
             }
         });
         tty.setOnFinished(event -> {
             ttx.setByY(0);
             if(invaders.getBoundsInParent().getMinX() == 0){
-                goRight(ttx);
+                goRight();
             }
             else{
-                goLeft(ttx);
+                goLeft();
             }
             ttx.play();
         });
-        goRight(ttx);
+        goRight();
+        ttx.play();
+    }
+    public void resume(){
+        goRight();
         ttx.play();
     }
 
-    private void goLeft(TranslateTransition ttx) {
+    private void goLeft() {
         ttx.setToX(battleground.getBoundsInParent().getMinX());
     }
 
-    private void goRight(TranslateTransition ttx) {
+    private void goRight() {
         ttx.setToX(battleground.getBoundsInParent().getWidth()-invaders.getBoundsInParent().getWidth());
     }
 
-    private void doNothing(TranslateTransition tty) {
+    private void doNothing() {
         tty.setByX(0);
         tty.setByY(0);
         tty.setAutoReverse(true);
         tty.play();
     }
 
-    private void goDown(TranslateTransition tty) {
+    private void goDown() {
         tty.setByX(0);
         tty.setByY(battleground.getBoundsInParent().getHeight()/40);
         tty.setAutoReverse(true);
         tty.play();
     }
-    private void goUp(TranslateTransition ttdep){
-        ttdep.setToX(battleground.getBoundsInParent().getMinX());
-        ttdep.setToY(battleground.getBoundsInParent().getMinY() - 75);
+    private void goUp(){
+        ttd.setToX(battleground.getBoundsInParent().getMinX());
+        ttd.setToY(battleground.getBoundsInParent().getMinY() - POSITION_CORRECT);
     }
     public void goToStart(){
         ttx.stop();
         tty.stop();
-        goUp(ttd);
+        goUp();
         ttd.play();
     }
 }

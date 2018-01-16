@@ -104,5 +104,4 @@ public class MedInvaders {
     public void setListAlienProperty(ObservableList<Alien> listAlienProperty) {
         this.listAlienProperty.set(listAlienProperty);
     }
-
 }
