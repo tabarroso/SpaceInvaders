@@ -138,12 +138,9 @@ public class Game {
         return mediator.getListAlienProperty();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Reinitialize the game environment
      */
->>>>>>> b27fe22779114cc365695179069458b4a0030f5e
     public void reInit(){
         mediator = new MedInvaders();
         canon = new Canon();
