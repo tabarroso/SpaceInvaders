@@ -34,7 +34,7 @@ public class GameInitializer {
     private IntegerProperty time = new SimpleIntegerProperty(COUNTDOWN_START);
     private static final int NB_COL = 11;
     private static final int NB_LINE = 5;
-    private static final int COUNTDOWN_START = 5;
+    private static final int COUNTDOWN_START = 3;
 
     public GameInitializer(Pane battleground, GridPane invaders){
         this.battleground = battleground;
@@ -51,9 +51,11 @@ public class GameInitializer {
         game.getCanon().getImage().setY(battleground.getBoundsInParent().getHeight() - game.getCanon().getImage().getImage().getHeight());
         game.getCanon().getImage().setX(0);
         battleground.getChildren().add(game.getCanon().getImage());
+        setListeners();
         startCountdown();
     }
     public void initializeLevel(){
+        alienAnimation.goToStart();
         game.getMediator().createInvaders();
         game.getMediator().initializePositions(invaders,NB_COL,NB_LINE);
         this.level +=1;
@@ -63,6 +65,18 @@ public class GameInitializer {
         game.healthProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.intValue() == 0){
                 gameOver();
+            }
+        });
+        game.getMediator().listAlienProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.isEmpty()){
+                Timeline timeline = new Timeline();
+                timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(COUNTDOWN_START-1), new KeyValue(time,0)));
+                timeline.playFromStart();
+                timeline.setOnFinished(event -> {
+                    missileShooter.stopCanonMissile();
+                    initializeLevel();
+                    startCountdown();
+                });
             }
         });
     }
@@ -98,12 +112,6 @@ public class GameInitializer {
         bestScoreLabel.textProperty().bind(game.bestScoreProperty().asString());
         scoreLabel.textProperty().bind(game.getCurrentScore().scorePropProperty().asString());
         healthLabel.textProperty().bind(game.healthProperty().asString());
-    }
-
-    private void nextLevel(){
-        //game.getMediator().getListAlien().isEmpty(event -> {
-
-       // });
     }
 }
 

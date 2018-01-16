@@ -10,14 +10,18 @@ public class AlienAnimation{
 
     private Pane battleground;
     private GridPane invaders;
+    private TranslateTransition tty;
+    private TranslateTransition ttx;
+    private TranslateTransition ttd;
 
     public AlienAnimation(Pane battleground, GridPane invaders){
         this.battleground = battleground;
         this.invaders = invaders;
+        tty = new TranslateTransition(Duration.millis(1500), invaders);
+        ttx = new TranslateTransition(Duration.millis(3500), invaders);
+        ttd = new TranslateTransition(Duration.millis(1), invaders);
     }
     public void initializeTranslation(){
-        TranslateTransition tty = new TranslateTransition(Duration.millis(1500), invaders);
-        TranslateTransition ttx = new TranslateTransition(Duration.millis(3500), invaders);
         ttx.setOnFinished(event->{
             if(invaders.getBoundsInParent().getMaxY() <= (battleground.getBoundsInParent().getHeight()/100)*80){
                 goDown(tty);
@@ -60,5 +64,15 @@ public class AlienAnimation{
         tty.setByY(battleground.getBoundsInParent().getHeight()/40);
         tty.setAutoReverse(true);
         tty.play();
+    }
+    private void goUp(TranslateTransition ttdep){
+        ttdep.setToX(battleground.getBoundsInParent().getMinX());
+        ttdep.setToY(battleground.getBoundsInParent().getMinY() - 75);
+    }
+    public void goToStart(){
+        ttx.stop();
+        tty.stop();
+        goUp(ttd);
+        ttd.play();
     }
 }
