@@ -75,15 +75,9 @@ public class GameInitializer {
     private static final int COUNTDOWN_START = 3;
 
     /**
-<<<<<<< HEAD
      * Constructor
      * @param battleground The Battleground Container
      * @param invaders The Invaders Container
-=======
-     *
-     * @param battleground
-     * @param invaders
->>>>>>> b27fe22779114cc365695179069458b4a0030f5e
      */
     public GameInitializer(Pane battleground, GridPane invaders){
         this.battleground = battleground;
