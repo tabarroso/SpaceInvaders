@@ -185,7 +185,6 @@ public class MissileShooter {
     }
     /**
      * Stops the player's missile animation and remove it from the view: Called when a level is finished
-     * @see stopMissile
      */
     public void stopCanonMissile(){
             canonMissileTr.stop();

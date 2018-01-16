@@ -68,6 +68,7 @@ public class Game {
     public ObservableList<Alien> getAlienList(){
         return mediator.getListAlienProperty();
     }
+
     public void reInit(){
         mediator = new MedInvaders();
         canon = new Canon();

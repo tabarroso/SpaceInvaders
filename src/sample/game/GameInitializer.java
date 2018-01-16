@@ -23,19 +23,62 @@ import sample.controller.FXMLLauncherController;
 
 import javax.swing.event.ListDataEvent;
 
+/**
+ * Initializes the game components
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ */
 public class GameInitializer {
+    /**
+     * Used to communicate with the game sub-system
+     */
     private Game game;
+    /**
+     * Manage the animations of the Canon
+     */
     private CanonAnimation canonAnimation;
+    /**
+     * Manage the animations of the Missiles
+     */
     private MissileShooter missileShooter;
+    /**
+     * Manage the animations of the Aliens
+     */
     private AlienAnimation alienAnimation;
+    /**
+     * The Battleground Container
+     */
     private Pane battleground;
+    /**
+     * The Invaders Container
+     */
     private GridPane invaders;
+    /**
+     * Level of the current session
+     */
     private int level;
+    /**
+     * Countdown property
+     */
     private IntegerProperty time = new SimpleIntegerProperty(COUNTDOWN_START);
+    /**
+     * Number of columns of the Invaders Container
+     */
     private static final int NB_COL = 11;
+    /**
+     * Number of ROws of the Invaders COntainer
+     */
     private static final int NB_LINE = 5;
+    /**
+     * Countdown time
+     */
     private static final int COUNTDOWN_START = 3;
 
+    /**
+     * Constructor
+     * @param battleground The Battleground Container
+     * @param invaders The Invaders Container
+     */
     public GameInitializer(Pane battleground, GridPane invaders){
         this.battleground = battleground;
         this.invaders = invaders;
@@ -47,6 +90,9 @@ public class GameInitializer {
         alienAnimation = new AlienAnimation(battleground, invaders);
     }
 
+    /**
+     * Initializes the game components
+     */
     public void initializeGame(){
         initializeLevel();
         game.getCanon().getImage().setY(battleground.getBoundsInParent().getHeight() - game.getCanon().getImage().getImage().getHeight());
@@ -55,6 +101,10 @@ public class GameInitializer {
         setListeners();
         startCountdown();
     }
+
+    /**
+     * Initializes the current session level components
+     */
     public void initializeLevel(){
         alienAnimation.goToStart();
         game.getMediator().createInvaders();
@@ -62,6 +112,9 @@ public class GameInitializer {
         this.level +=1;
     }
 
+    /**
+     * Initializes the Listeners
+     */
     private void setListeners(){
         game.healthProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.intValue() == 0){
@@ -82,15 +135,24 @@ public class GameInitializer {
         });
     }
 
+    /**
+     * closes the games when the number of HP is equal to 0
+     */
     private void gameOver(){
         FXMLLauncherController.getGameStage().close();
     }
 
+    /**
+     * Initializes the Key Events
+     */
     private void setKeyEvents(){
         canonAnimation.setPressed();
         canonAnimation.setReleased();
     }
 
+    /**
+     * Launches the game and the level
+     */
     private void startCountdown(){
         Label countdown = new Label();
         countdown.setStyle("-fx-font-size: 4em;");
@@ -114,6 +176,12 @@ public class GameInitializer {
         });
     }
 
+    /**
+     * Initializes the scores, best score and Health points Views
+     * @param scoreLabel
+     * @param bestScoreLabel
+     * @param healthLabel
+     */
     public void initializeBindings(Label scoreLabel, Label bestScoreLabel, Label healthLabel){
         bestScoreLabel.textProperty().bind(game.bestScoreProperty().asString());
         scoreLabel.textProperty().bind(game.getCurrentScore().scorePropProperty().asString());
