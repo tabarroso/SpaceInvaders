@@ -36,7 +36,7 @@ public class MissileShooter {
     public void canonShot(){
         Missile missile = new Missile();
         canonMissileImage = new ImageView(new Image(missile.getShape()));
-        canonMissileTr = new TranslateTransition(Duration.millis(200), canonMissileImage);
+        canonMissileTr = new TranslateTransition(Duration.millis(400), canonMissileImage);
         canonMissileImage.setY(canon.getImage().getBoundsInParent().getMinY());
         canonMissileImage.setX(canon.getImage().getBoundsInParent().getMinX() + canon.getImage().getBoundsInParent().getWidth() / 2);
         canonMissileImage.translateYProperty().addListener((observable, oldValue, newValue) -> {

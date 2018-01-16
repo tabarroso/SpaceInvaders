@@ -40,6 +40,7 @@ public class GameInitializer {
         this.battleground = battleground;
         this.invaders = invaders;
         game = FXMLLauncherController.getGame();
+        game.reInit();
         level = 0;
         missileShooter = new MissileShooter(battleground,invaders,game);
         canonAnimation = new CanonAnimation(battleground, missileShooter, game.getCanon());
@@ -86,9 +87,8 @@ public class GameInitializer {
     }
 
     private void setKeyEvents(){
-        TranslateTransition transition = new TranslateTransition(Duration.millis(6000), game.getCanon().getImage());
-        canonAnimation.setPressed(transition);
-        canonAnimation.setReleased(transition);
+        canonAnimation.setPressed();
+        canonAnimation.setReleased();
     }
 
     private void startCountdown(){
@@ -103,7 +103,13 @@ public class GameInitializer {
         timeline.setOnFinished(event -> {
             battleground.getChildren().remove(countdown);
             setKeyEvents();
-            alienAnimation.initializeTranslation();
+            if(level == 1){
+                alienAnimation.initializeTranslation();
+            }
+            else {
+                canonAnimation.stopAnimation();
+                alienAnimation.resume();
+            }
             game.getMediator().queryShot(game.getMediator().getImages(),missileShooter, level);
         });
     }

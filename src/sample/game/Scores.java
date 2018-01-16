@@ -14,8 +14,7 @@ public class Scores {
     private ListProperty<Score> scores = new SimpleListProperty<>(scoresObs);
     private Score currentScore;
 
-    public Scores(String pseudo) {
-        this.currentScore = new Score(0,pseudo);
+    public Scores() {
     }
 
     public Score getCurrentScore() {
@@ -42,5 +41,8 @@ public class Scores {
     }
     public ReadOnlyListProperty<Score> scoresProperty() {
         return scores;
+    }
+    public void reinitCurrentScore(String pseudo){
+        currentScore = new Score(0, pseudo);
     }
 }

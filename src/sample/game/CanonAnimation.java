@@ -11,11 +11,13 @@ public class CanonAnimation {
     private Canon canon;
     private MissileShooter missileShooter;
     private Pane battleground;
+    private TranslateTransition transition;
 
     public CanonAnimation(Pane battleground, MissileShooter missileShooter, Canon canon) {
         this.canon = canon;
         this.battleground = battleground;
         this.missileShooter = missileShooter;
+        transition = new TranslateTransition(Duration.millis(6000), canon.getImage());
     }
 
     private void upShotCmd(KeyEvent event) {
@@ -27,7 +29,7 @@ public class CanonAnimation {
         }
     }
 
-    public void setReleased(TranslateTransition transition) {
+    public void setReleased() {
         battleground.setOnKeyReleased(event -> {
             if (event.getCode() == KeyCode.RIGHT) {
                 transition.stop();
@@ -39,7 +41,7 @@ public class CanonAnimation {
         });
     }
 
-    public void setPressed(TranslateTransition transition) {
+    public void setPressed() {
         battleground.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.RIGHT) {
                 transition.setToX(battleground.getBoundsInParent().getWidth() - canon.getImage().getImage().getWidth());
@@ -54,5 +56,8 @@ public class CanonAnimation {
             upShotCmd(event);
             event.consume();
         });
+    }
+    public void stopAnimation(){
+        transition.stop();
     }
 }

@@ -18,7 +18,7 @@ public class Game {
     public Game() {
         this.canon = new Canon();
         this.mediator = new MedInvaders();
-        this.scores = new Scores(getPseudo());
+        this.scores = new Scores();
     }
 
     public ObservableList<Score> getScores() {
@@ -68,5 +68,9 @@ public class Game {
     public ObservableList<Alien> getAlienList(){
         return mediator.getListAlienProperty();
     }
-
+    public void reInit(){
+        mediator = new MedInvaders();
+        canon = new Canon();
+        scores.reinitCurrentScore(getPseudo());
+    }
 }
