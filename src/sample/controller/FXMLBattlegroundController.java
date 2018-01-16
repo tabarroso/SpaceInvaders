@@ -63,4 +63,5 @@ public class FXMLBattlegroundController{
             invaders.addRow(i);
         invaders.setMinSize(MIN_WIDTH,MIN_HEIGHT);
     }
+
 }

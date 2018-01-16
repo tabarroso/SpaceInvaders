@@ -65,8 +65,8 @@ public class Game {
         return mediator;
     }
 
-    public ArrayList<Alien> getAlienList(){
-        return mediator.getListAlien();
+    public ObservableList<Alien> getAlienList(){
+        return mediator.getListAlienProperty();
     }
 
 }

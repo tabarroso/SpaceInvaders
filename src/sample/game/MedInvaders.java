@@ -8,6 +8,10 @@ package sample.game;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
@@ -22,26 +26,29 @@ import sample.entities.characters.aliens.TypeAlien;
  * @author ilbenjello
  */
 public class MedInvaders {
-    private ArrayList<Alien> listAlien;
+    private ObservableList<Alien> listAlien = FXCollections.observableArrayList();
+    private ListProperty<Alien> listAlienProperty = new SimpleListProperty<>(listAlien);
     private static final int ARMY = 55;
     private static final int SMALL = 11;
     private static final int MEDIUM = 33;
     private static final int BIG = 55;
 
     public MedInvaders(){
-        listAlien = new ArrayList();
     }
 
+
     public void createInvaders(){
-        for(int i=0; i < ARMY; i++){
-            if(i < SMALL){
-                listAlien.add(new Alien(this, TypeAlien.SMALL));
-            }
-            if(i >= SMALL && i < MEDIUM){
-                listAlien.add(new Alien(this, TypeAlien.MEDIUM));
-            }
-            if(i >= MEDIUM && i < BIG){
-                listAlien.add(new Alien(this, TypeAlien.BIG));
+        if(listAlien.size() == 0) {
+            for (int i = 0; i < ARMY; i++) {
+                if (i < SMALL) {
+                    listAlien.add(new Alien(this, TypeAlien.SMALL));
+                }
+                if (i >= SMALL && i < MEDIUM) {
+                    listAlien.add(new Alien(this, TypeAlien.MEDIUM));
+                }
+                if (i >= MEDIUM && i < BIG) {
+                    listAlien.add(new Alien(this, TypeAlien.BIG));
+                }
             }
         }
     }
@@ -71,18 +78,31 @@ public class MedInvaders {
         return images;
     }
 
-    public ArrayList<Alien> getListAlien(){
-        return listAlien;
-    }
-
-    public void queryShot(ArrayList<ImageView> listImages, MissileShooter missileShooter){
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> {
+    public void queryShot(ArrayList<ImageView> listImages, MissileShooter missileShooter, int level){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4-(0.05*level)), event -> {
             Random rn = new Random();
-            int answer = rn.nextInt(ARMY-1) + 1;
-            ImageView alienImage = listImages.get(answer);
-            missileShooter.alienShot(alienImage);
+            int bound = listAlien.size();
+            if(bound > 0) {
+                int answer = rn.nextInt(bound);
+                if (answer <= listAlien.size()) {
+                    ImageView alienImage = listImages.get(answer);
+                    missileShooter.alienShot(alienImage, level);
+                }
+            }
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+    public ObservableList<Alien> getListAlienProperty() {
+        return listAlienProperty.get();
+    }
+
+    public ListProperty<Alien> listAlienProperty() {
+        return listAlienProperty;
+    }
+
+    public void setListAlienProperty(ObservableList<Alien> listAlienProperty) {
+        this.listAlienProperty.set(listAlienProperty);
+    }
+
 }

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 public class FXMLLauncherController {
 
     private static Game game = new Game();
+    private static Stage newWindow;
 
     @FXML
     ListView<Score> bestScoresList;
@@ -33,7 +34,7 @@ public class FXMLLauncherController {
     private void onClickStart(){
         try {
             Scene newScene = new Scene(FXMLLoader.load(getClass().getResource("/sample/vue/FXMLBattleground.fxml")));
-            Stage newWindow = new Stage();
+            newWindow = new Stage();
             newWindow.setTitle(pseudoField.getText());
             newWindow.setScene(newScene);
             newWindow.initOwner(Main.getPrimaryStage());
@@ -50,6 +51,10 @@ public class FXMLLauncherController {
     }
 
     public static Game getGame(){ return game; }
+
+    public static Stage getGameStage(){
+        return newWindow;
+    }
 
     @FXML
     private void initialize(){
