@@ -15,15 +15,32 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
- * @author ilbenjello
+ * Define the canon
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ * @version 1.0
  */
 public class Canon extends Character {
+    /**
+     * A boolean to know if the can can shot
+     */
     private boolean canShot;
+    /**
+     * The number of healths
+     */
     private final static int HEALTH = 5;
+    /**
+     * The canon imageView
+     */
     private ImageView image;
+    /**
+     * The number of healths property
+     */
     private IntegerProperty health = new SimpleIntegerProperty();
 
+    /**
+     * Constructor
+     */
     public Canon(){
         super();
         this.setSkin("/sample/resources/canon.jpg");
@@ -32,30 +49,50 @@ public class Canon extends Character {
         setHealth(HEALTH);
     }
 
+    /**
+     *
+     * @return the canon's ImageView
+     */
     public ImageView getImage() {
         return image;
     }
 
+    /**
+     *
+     * @return the canon's healths
+     */
     public int getHealth() {
         return health.get();
     }
 
+    /**
+     *
+     * @return the property of the canon's healths
+     */
     public IntegerProperty healthProperty() {
         return health;
     }
 
+    /**
+     * Set the canon's healths with the value of health
+     * @param health
+     */
     public void setHealth(int health) {
         this.health.set(health);
     }
 
+    /**
+     *
+     * @return if the canon can shot
+     */
     public boolean isCanShot(){
-        if(canShot){
-            canShot = false;
-            return true;
-        }
-        return false;
+        return canShot;
     }
 
+    /**
+     * Set if the canon can shot
+     * @param canShot
+     */
     public void setCanShot(boolean canShot){
         this.canShot = canShot;
     }

@@ -36,6 +36,11 @@ public class GameInitializer {
     private static final int NB_LINE = 5;
     private static final int COUNTDOWN_START = 3;
 
+    /**
+     *
+     * @param battleground
+     * @param invaders
+     */
     public GameInitializer(Pane battleground, GridPane invaders){
         this.battleground = battleground;
         this.invaders = invaders;

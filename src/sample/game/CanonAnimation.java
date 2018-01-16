@@ -7,12 +7,36 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import sample.entities.characters.Canon;
 
+/**
+ * This class manage the canon's animations
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ * @version 1.0
+ */
 public class CanonAnimation {
+    /**
+     * The player's canon
+     */
     private Canon canon;
+    /**
+     *The class that manage the missile shots
+     */
     private MissileShooter missileShooter;
+    /**
+     * The battleground container
+     */
     private Pane battleground;
+    /**
+     * The canon transition
+     */
     private TranslateTransition transition;
 
+    /**
+     * Constructor
+     * @param battleground
+     * @param missileShooter
+     * @param canon
+     */
     public CanonAnimation(Pane battleground, MissileShooter missileShooter, Canon canon) {
         this.canon = canon;
         this.battleground = battleground;
@@ -20,6 +44,10 @@ public class CanonAnimation {
         transition = new TranslateTransition(Duration.millis(6000), canon.getImage());
     }
 
+    /**
+     * Initialize the shot command (up key)
+     * @param event
+     */
     private void upShotCmd(KeyEvent event) {
         if (event.getCode() == KeyCode.UP) {
             if (canon.isCanShot()) {
@@ -29,18 +57,21 @@ public class CanonAnimation {
         }
     }
 
+    /**
+     * Stop the transition when the move key is released
+     */
     public void setReleased() {
         battleground.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.RIGHT) {
-                transition.stop();
-            }
-            if (event.getCode() == KeyCode.LEFT) {
-                transition.stop();
+            if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT) {
+                stopAnimation();
             }
             event.consume();
         });
     }
 
+    /**
+     * Set the movement transition according the key we press
+     */
     public void setPressed() {
         battleground.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.RIGHT) {
@@ -57,6 +88,10 @@ public class CanonAnimation {
             event.consume();
         });
     }
+
+    /**
+     * Stop the animation
+     */
     public void stopAnimation(){
         transition.stop();
     }

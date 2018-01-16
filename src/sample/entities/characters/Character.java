@@ -8,22 +8,35 @@ package sample.entities.characters;
 import sample.entities.Missile;
 
 /**
- *
- * @author ilbenjello
+ * Abstract class that define a character
+ * @author Ilyace Benjelloun
+ * @author Tanguy Barroso
+ * @version 1.0
  */
 public abstract class Character{
-    private Missile missile;
+    /**
+     * The path to the character's skin resource
+     */
     private String skin;
 
+    /**
+     * Constructor
+     */
     public Character() {
-        super();
-        this.missile = null;
     }
 
+    /**
+     *
+     * @return the path to the character's skin resource
+     */
     public String getSkin() {
         return skin;
     }
 
+    /**
+     * Set the path to the character's skin resource
+     * @param skin
+     */
     public void setSkin(String skin) {
         this.skin = skin;
     }
