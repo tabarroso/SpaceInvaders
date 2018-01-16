@@ -30,7 +30,7 @@ public class CanonAnimation {
      * The canon transition
      */
     private TranslateTransition transition;
-
+s
     /**
      * Constructor
      * @param battleground
